@@ -12,7 +12,7 @@
 ## Git commands:
 ### BASICS
 Cloning this repo to your computer:
-* git clone https://github.com/GabrielLim01/SC2006.git
+* git clone https://github.com/GabrielLim01/SC2006-Application.git
 
 Pulling new changes (Make sure you are on the correct branch):
 
