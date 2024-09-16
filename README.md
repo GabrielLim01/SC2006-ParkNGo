@@ -1,4 +1,14 @@
-# SC2006 Application
+# SC2006 - ParkNGo
+
+## Dependencies ##
+
+### Bootstrap ###
+npm i bootstrap react-bootstrap
+
+In the global.css file, put this at the top:
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+See https://stackoverflow.com/questions/75821915/next-js-include-bootstrap-js for more information.
 
 ## Instructions to running the project:
 
