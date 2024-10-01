@@ -1,0 +1,4 @@
+npm install bootstrap
+npm install react-bootstrap
+npm install flowbite-react
+npm i react-searchkit
