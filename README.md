@@ -22,7 +22,7 @@ See https://stackoverflow.com/questions/75821915/next-js-include-bootstrap-js fo
 ## Git commands:
 ### BASICS
 Cloning this repo to your computer:
-* git clone https://github.com/GabrielLim01/SC2006-Application.git
+* git clone https://github.com/GabrielLim01/SC2006-ParkNGo.git
 
 Pulling new changes (Make sure you are on the correct branch):
 
