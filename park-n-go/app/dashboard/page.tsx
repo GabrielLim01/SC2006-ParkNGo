@@ -1,10 +1,42 @@
 //import Image from "next/image";
+"use client";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+
+import { CarparkList } from "./CarparkList";
 
 export default function Home() {
+  
+  // todo: actually save in a local database
+  const [saved, setSaved] = useState([])
+
+  // add a carpark information into the list
+  function addSaved(id, address, xCoord, yCoord, cpType, shortTermParking, freeParking, nightParking, gantryHeight, availLots){
+    setSaved(currentSaved => {
+      return [
+        ...currentSaved,
+        {id, address, xCoord, yCoord, cpType, shortTermParking, freeParking, nightParking, gantryHeight, availLots}
+      ]
+    })
+  }
+
+  // delete carpark information from the list
+  function deleteSaved(id){
+    setSaved(currentSaved => {
+      return currentSaved.filter(item => item.id !== id)
+    })
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-     Hello World!
+    
+    Search bar here
+
+    <h1 className="header">Saved Carpark</h1>
+    <CarparkList carparkList={saved} deleteList={deleteSaved}></CarparkList>
+
+    <h1 className="header">Nearby Carpark</h1>
+
     </main>
     //   <Container>
     //   <Row>
