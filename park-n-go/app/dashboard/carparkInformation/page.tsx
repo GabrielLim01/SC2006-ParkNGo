@@ -5,9 +5,10 @@ import axios from 'axios';
 import Papa from 'papaparse';
 
 interface CarparkInfo {
-  carpark_number: string;
-  carpark_name: string;
-  carpark_location: string;
+  car_park_no: string;
+  address: string;
+  car_park_type: string;
+  type_of_parking_system: string;
 }
 
 interface CarparkData {
@@ -25,9 +26,6 @@ function Carpark() {
   const [data, setData] = useState<CarparkData | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>([]);
-  const csvData = require('./names.csv');
-
-  console.log(csvData);
 
   useEffect(() => {
     const options = {
@@ -47,14 +45,20 @@ function Carpark() {
   }, []);
 
   useEffect(() => {
-    Papa.parse(csvData, {
+    const csvData = Papa.parse("/names.csv", {
       header: true,
-      complete: function(results) {
-        console.log(results.data);
+      download: true,
+      skipEmptyLines: true,
+      delimiter: ",",
+      complete: (results) => {
+        console.log("CSV Data:", results.data);
         setCarparkInfo(results.data);
-      }
+      },
+      error: (error) => {
+        console.error("CSV Error:", error);
+      },
     });
-  }, [csvData]);
+  }, []);
 
   console.log('Data State:', data);
 
@@ -74,8 +78,9 @@ function Carpark() {
           <tr>
             <th>Carpark Number</th>
             <th>Availability</th>
-            <th>Carpark Name</th>
-            <th>Carpark Location</th>
+            <th>Address</th>
+            <th>Carpark Type</th>
+            <th>Type of Parking System</th>
           </tr>
         </thead>
         <tbody>
@@ -85,8 +90,17 @@ function Carpark() {
               <td>{carpark.carpark_info[0].lots_available}</td>
               {carparkInfo && Array.isArray(carparkInfo) && (
               <React.Fragment>
-                <td>{carparkInfo.find(info => info.carpark_number === carpark.carpark_number)?.carpark_name}</td>
-                <td>{carparkInfo.find(info => info.carpark_number === carpark.carpark_number)?.carpark_location}</td>
+                {carparkInfo.map((info, index) => (
+                  <React.Fragment key={index}>
+                    {info.car_park_no === carpark.carpark_number && (
+                      <React.Fragment>
+                        <td>{info.address}</td>
+                        <td>{info.car_park_type}</td>
+                        <td>{info.type_of_parking_system}</td>
+                      </React.Fragment>
+                    )}
+                  </React.Fragment>
+                ))}
               </React.Fragment>
             )}
             </tr>
