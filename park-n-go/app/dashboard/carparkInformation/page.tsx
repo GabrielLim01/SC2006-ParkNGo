@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import Papa from 'papaparse';
 
@@ -22,25 +22,33 @@ interface CarparkData {
   };
 }
 
+const CarparkTable = React.lazy(() => import('./carparkTable'));
+
 function Carpark() {
   const [data, setData] = useState<CarparkData | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const options = {
       method: 'GET',
-      url: 'https://api.data.gov.sg/v1/transport/carpark-availability'
+      url: 'https://api.data.gov.sg/v1/transport/carpark-availability',
+      timeout: 10000, // Set a timeout of 10 seconds
     };
+
+    setLoading(true);
 
     axios.request(options)
       .then(response => {
         console.log('API Response:', response.data);
         setData(response.data);
+        setLoading(false);
       })
       .catch(error => {
         console.error('API Error:', error);
         setError(error);
+        setLoading(false);
       });
   }, []);
 
@@ -66,47 +74,20 @@ function Carpark() {
     return <div>Error: {error.message}</div>;
   }
 
-  if (!data) {
+  if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!data) {
+    return <div>No data available</div>;
   }
 
   return (
     <div>
       <h1>Carpark Availability</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Carpark Number</th>
-            <th>Availability</th>
-            <th>Address</th>
-            <th>Carpark Type</th>
-            <th>Type of Parking System</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.items && data.items[0] && data.items[0].carpark_data && data.items[0].carpark_data.map(carpark => (
-            <tr key={carpark.carpark_number}>
-              <td>{carpark.carpark_number}</td>
-              <td>{carpark.carpark_info[0].lots_available}</td>
-              {carparkInfo && Array.isArray(carparkInfo) && (
-              <React.Fragment>
-                {carparkInfo.map((info, index) => (
-                  <React.Fragment key={index}>
-                    {info.car_park_no === carpark.carpark_number && (
-                      <React.Fragment>
-                        <td>{info.address}</td>
-                        <td>{info.car_park_type}</td>
-                        <td>{info.type_of_parking_system}</td>
-                      </React.Fragment>
-                    )}
-                  </React.Fragment>
-                ))}
-              </React.Fragment>
-            )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Suspense fallback={<div>Loading...</div>}>
+        <CarparkTable data={data} carparkInfo={carparkInfo} />
+      </Suspense>
     </div>
   );
 }

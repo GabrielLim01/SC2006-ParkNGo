@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios-cache-adapter": "^2.7.3",
     "fs": "^0.0.1-security"
   }
 }
