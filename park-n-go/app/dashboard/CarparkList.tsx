@@ -1,8 +1,11 @@
-import { CarparkItem } from "./CarparkItem"
+// import { CarparkItem } from "./CarparkItem"
 
-export function CarparkList({carparkList, deleteList}){
-	return (<ol className="list">
-        {carparkList.length===0 && "No carpark in the list"}
+/*
+export function CarparkList({ carparkList, deleteList }) {
+    return (<ol className="list"> 
+        {carparkList.length === 0 && "No carpark in the list"}
+        {
+        
         {carparkList.map(item => {
             return <CarparkItem
                 id={item.id}
@@ -11,6 +14,9 @@ export function CarparkList({carparkList, deleteList}){
                 deleteList={deleteList}
             />
         })}
+            
+        }
     </ol>)
-    
+
 }
+*/

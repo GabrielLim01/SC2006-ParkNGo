@@ -9,10 +9,10 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 // Additional pages
-import { CarparkList } from "./CarparkList";
+// import { CarparkList } from "./CarparkList";
 
 // ReactSearchKit component
-import { ReactSearchKit, SearchBar } from 'react-searchkit';
+// import { ReactSearchKit, SearchBar } from 'react-searchkit';
 
 export default function Home() {
 
@@ -20,21 +20,21 @@ export default function Home() {
   const [saved, setSaved] = useState([])
 
   // add a carpark information into the list
-  function addSaved(id, address, xCoord, yCoord, cpType, shortTermParking, freeParking, nightParking, gantryHeight, availLots) {
-    setSaved(currentSaved => {
-      return [
-        ...currentSaved,
-        { id, address, xCoord, yCoord, cpType, shortTermParking, freeParking, nightParking, gantryHeight, availLots }
-      ]
-    })
-  }
+  // function addSaved(id, address, xCoord, yCoord, cpType, shortTermParking, freeParking, nightParking, gantryHeight, availLots) {
+  //   setSaved(currentSaved => {
+  //     return [
+  //       ...currentSaved,
+  //       { id, address, xCoord, yCoord, cpType, shortTermParking, freeParking, nightParking, gantryHeight, availLots }
+  //     ]
+  //   })
+  // }
 
   // delete carpark information from the list
-  function deleteSaved(id) {
-    setSaved(currentSaved => {
-      return currentSaved.filter(item => item.id !== id)
-    })
-  }
+  // function deleteSaved(id) {
+  //   setSaved(currentSaved => {
+  //     return currentSaved.filter(item => item.id !== id)
+  //   })
+  // }
 
   return (
     <div>
@@ -62,12 +62,12 @@ export default function Home() {
       </Navbar>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
-        <ReactSearchKit>
+        {/* <ReactSearchKit>
           <SearchBar />
-        </ReactSearchKit>
+        </ReactSearchKit> */}
 
         <h1 className="header">Saved Carpark</h1>
-        <CarparkList carparkList={saved} deleteList={deleteSaved}></CarparkList>
+        {/* <CarparkList carparkList={saved} deleteList={deleteSaved}></CarparkList> */}
 
         <h1 className="header">Nearby Carpark</h1>
 
