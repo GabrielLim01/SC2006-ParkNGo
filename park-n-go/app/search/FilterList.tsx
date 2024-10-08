@@ -4,18 +4,17 @@ import {useState} from "react"
 
 export function FilterList() {
 
+    // todo: actually filter the carparks entries
     const [filters, setFilters] = useState([0,0,0,0,0,0])
 
 
     return <div>
         <p>Filters</p>
 
-        {/* todo: actually filter the carparks entries */}
-
-        <Checkbox title="Available" index="0" filters={filters} setFilters={setFilters}/>
-        <Checkbox title="Free Parking" index="1" filters={filters} setFilters={setFilters}/>
-        <Checkbox title="Night Parking" index="2" filters={filters} setFilters={setFilters}/>
-        <Checkbox title="Type" index="3" filters={filters} setFilters={setFilters}/>
+        <Checkbox title="Available" id={0} filters={filters} setFilters={setFilters}/>
+        <Checkbox title="Free Parking" id={1} filters={filters} setFilters={setFilters}/>
+        <Checkbox title="Night Parking" id={2} filters={filters} setFilters={setFilters}/>
+        <Checkbox title="Type" id={3} filters={filters} setFilters={setFilters}/>
         
         <p> <select>
             <option value="">Gantry Height</option>
