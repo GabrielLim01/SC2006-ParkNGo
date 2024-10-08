@@ -9,6 +9,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 // Additional pages
+import {FilterList} from "./FilterList"
 // import { CarparkList } from "./CarparkList";
 
 // ReactSearchKit component
@@ -60,17 +61,21 @@ export default function Home() {
           <Navbar.Link href="/navbars">Contact</Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
+
+      
+
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
         {/* <ReactSearchKit>
           <SearchBar />
         </ReactSearchKit> */}
 
-        <h1 className="header">Saved Carpark</h1>
+        <FilterList/>
+
+        <h1 className="header">Search result</h1>
         {/* <CarparkList carparkList={saved} deleteList={deleteSaved}></CarparkList> */}
 
-        <h1 className="header">Nearby Carpark</h1>
-
+        
       </main>
     </div>
   );
