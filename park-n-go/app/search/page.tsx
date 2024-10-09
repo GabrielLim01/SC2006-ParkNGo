@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 
 // Additional pages
 import {FilterList} from "./FilterList"
+import "./App.css"
 // import { CarparkList } from "./CarparkList";
 
 // ReactSearchKit component
@@ -17,8 +18,10 @@ import {FilterList} from "./FilterList"
 
 export default function Home() {
 
-  // todo: actually save in a local database
-  const [saved, setSaved] = useState([])
+  // todo: actually filters carpark entries
+  // [available, freeParking, nightParking, type[], gantryHeight, OpenTime[]]
+  const [filters, setFilters] = useState([0,0,0,[],0,0])
+
 
   // add a carpark information into the list
   // function addSaved(id, address, xCoord, yCoord, cpType, shortTermParking, freeParking, nightParking, gantryHeight, availLots) {
@@ -70,10 +73,10 @@ export default function Home() {
           <SearchBar />
         </ReactSearchKit> */}
 
-        <FilterList/>
+        <FilterList filters={filters} setFilters={setFilters}/>
 
         <h1 className="header">Search result</h1>
-        {/* <CarparkList carparkList={saved} deleteList={deleteSaved}></CarparkList> */}
+        {/* <CarparkList carparkList={saved} filters={filters}></CarparkList> */}
 
         
       </main>

@@ -1,5 +1,3 @@
-import {useState} from 'react'
-
 export function Checkbox({ title, id, filters, setFilters }){
 
     const handleChange = ()=>{
@@ -18,7 +16,6 @@ export function Checkbox({ title, id, filters, setFilters }){
             />
             {title}
         </label>
-        <p></p>
     </div>
     
 }
