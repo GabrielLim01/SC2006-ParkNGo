@@ -1,0 +1,16 @@
+Active
+
+npm install
+npm install next
+npm install react
+npm install react-dom
+npm install react-bootstrap
+npm install flowbite-react
+npm install axios
+npm install papaparse
+
+
+Unused / Inactive
+
+npm install bootstrap
+npm i react-searchkit

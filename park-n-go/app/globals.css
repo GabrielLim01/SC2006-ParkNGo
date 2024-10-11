@@ -2,21 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-}
+} */
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,10 +24,117 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+} */
+
+body {
+  color: white;
+  /* background: linear-gradient(blue, purple); */
+  background: linear-gradient(180deg, rgba(2,0,.6,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
 }
 
-@layer utilities {
+/* @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+} */
+
+@layer components {
+  /* .wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(90deg, rgba(2,0,.6,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1), 100%)
+  } */
 }
+
+
+/* Background animation */
+.box {
+	/* width: 100%;
+	height: 100vh; */
+	background: linear-gradient(180deg, rgba(2,0,.6,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+}
+/* h2 {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	color: #fff;
+	font-family: lato;
+	font-weight: 900;
+	text-transform: uppercase;
+	font-size: 60px;
+} */
+.box div {
+	height: 60px;
+	width: 60px;
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	animation: animate 4s linear infinite;
+	background: rgba(255, 255, 255, .5);
+	border-radius: 15px;
+  z-index: -1; /* <- this allows animated elements to be hidden behind the main ui */
+}
+.box div:nth-child(1) {
+	top: 20%;
+	left: 20%;
+	animation: animate 8s linear infinite;
+}
+.box div:nth-child(2) {
+	top: 26%;
+	left: 89%;
+	animation: animate 10s linear infinite;
+}
+.box div:nth-child(3) {
+	top: 80%;
+	left: 90%;
+	animation: animate 5s linear infinite;
+}
+.box div:nth-child(4) {
+	top: 65%;
+	left: 75%;
+	animation: animate 7s linear infinite;
+}
+.box div:nth-child(5) {
+	top: 90%;
+	left: 10%;
+	animation: animate 9s linear infinite;
+}
+.box div:nth-child(6) {
+	top: 30%;
+	left: 60%;
+	animation: animate 5s linear infinite;
+}
+.box div:nth-child(7) {
+	top: 70%;
+	left: 33%;
+	animation: animate 8s linear infinite;
+}
+.box div:nth-child(8) {
+	top: 75%;
+	left: 60%;
+	animation: animate 10s linear infinite;
+}
+.box div:nth-child(9) {
+	top: 23%;
+	left: 50%;
+	animation: animate 6s linear infinite;
+}
+.box div:nth-child(10) {
+	top: 35%;
+	left: 7%;
+	animation: animate 10s linear infinite;
+}
+@keyframes animate {
+	0% {
+		transform: scale(0) translateY(0) rotate(50deg);
+	}
+	100% {
+		transform: scale(1.6) translateY(-250px) rotate(360deg);
+	}
+}
+

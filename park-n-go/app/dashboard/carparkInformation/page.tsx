@@ -28,7 +28,13 @@ function Carpark() {
   const [data, setData] = useState<CarparkData | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>([]);
+<<<<<<< Updated upstream
   const [loading, setLoading] = useState(false);
+=======
+  //const csvData = require('./names.csv');
+
+  //console.log(csvData);
+>>>>>>> Stashed changes
 
   useEffect(() => {
     const options = {
@@ -53,7 +59,11 @@ function Carpark() {
   }, []);
 
   useEffect(() => {
+<<<<<<< Updated upstream
     const csvData = Papa.parse("/names.csv", {
+=======
+    Papa.parse("./names.csv", {
+>>>>>>> Stashed changes
       header: true,
       download: true,
       skipEmptyLines: true,
@@ -66,7 +76,11 @@ function Carpark() {
         console.error("CSV Error:", error);
       },
     });
+<<<<<<< Updated upstream
   }, []);
+=======
+  });
+>>>>>>> Stashed changes
 
   console.log('Data State:', data);
 
