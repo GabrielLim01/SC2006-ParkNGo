@@ -56,21 +56,22 @@ export default function Home() {
   return (
     <div>
       <Navbar fluid rounded>
-        <Navbar.Brand>
-          <img src="/ParkNGo_Icon.png" className="mr-3 h-6 sm:h-9" alt="ParkNGo Logo"/>
+        <a href="/dashboard"><Navbar.Brand>
+          <img
+            src="/ParkNGo_Icon.png"
+            className="mr-3 h-6 sm:h-9"
+            alt="ParkNGo Logo"
+          />
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             ParkNGo
           </span>
-        </Navbar.Brand>
+        </Navbar.Brand></a>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link href="/navbars" active>
-            Home
-          </Navbar.Link>
-          <Navbar.Link href="/navbars">About</Navbar.Link>
-          <Navbar.Link href="/navbars">Services</Navbar.Link>
-          <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-          <Navbar.Link href="/navbars">Contact</Navbar.Link>
+          <Navbar.Link href="/dashboard">Home</Navbar.Link>
+          <Navbar.Link href="/search">Search</Navbar.Link>
+          <Navbar.Link href="/about">About</Navbar.Link>
+          {/* <Navbar.Link href="/navbars">Contact</Navbar.Link> */}
         </Navbar.Collapse>
       </Navbar>
 
@@ -87,13 +88,13 @@ export default function Home() {
           <p>Gantry height: {gantryHeight}m</p>
           
           {freeParking ? 
-            <p style={{color:'green'}}>Free parking</p>
+            <p style={{color:'green'}}>Free parking allowed</p>
             :
             <p style={{color:'red'}}>No free parking</p>
           }
 
           {nightParking ? 
-            <p style={{color:'green'}}>Night parking</p>
+            <p style={{color:'green'}}>Night parking allowed</p>
             :
             <p style={{color:'red'}}>No night parking</p>
           }
