@@ -2,9 +2,11 @@
 
 ## Dependencies ##
 (To clean wipe all npm modules and related dependencies)
+
 (May only work in Git Bash command window instead of default windows command prompt)
 
 npm -g ls | grep -v 'npm@' | awk '/@/ {print $2}' | awk -F@ '{print $1}' | xargs npm -g rm
+
 
 Rest of library/module installation instructions can be found under "library installation commands" text file.
 
