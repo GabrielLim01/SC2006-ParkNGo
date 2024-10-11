@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <div>
       <Navbar fluid rounded>
-        <Navbar.Brand>
+        <a href="/dashboard"><Navbar.Brand>
           <img
             src="/ParkNGo_Icon.png"
             className="mr-3 h-6 sm:h-9"
@@ -52,16 +52,13 @@ export default function Home() {
           <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
             ParkNGo
           </span>
-        </Navbar.Brand>
+        </Navbar.Brand></a>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link href="/navbars" active>
-            Home
-          </Navbar.Link>
-          <Navbar.Link href="/navbars">About</Navbar.Link>
-          <Navbar.Link href="/navbars">Services</Navbar.Link>
-          <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-          <Navbar.Link href="/navbars">Contact</Navbar.Link>
+          <Navbar.Link href="/dashboard">Home</Navbar.Link>
+          <Navbar.Link href="/search" active>Search</Navbar.Link>
+          <Navbar.Link href="/about">About</Navbar.Link>
+          {/* <Navbar.Link href="/navbars">Contact</Navbar.Link> */}
         </Navbar.Collapse>
       </Navbar>
 
