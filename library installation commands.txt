@@ -8,7 +8,8 @@ npm install react-bootstrap
 npm install flowbite-react
 npm install axios
 npm install papaparse
-
+npm install @material-ui/core --legacy-peer-deps
+npm install @material-ui/icons --legacy-peer-deps
 
 Unused / Inactive
 

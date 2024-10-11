@@ -97,7 +97,7 @@ function CarparkTable({ data, carparkInfo }: Props) {
     label="Search by car park number, address, type, or system"
     variant="filled"
     fullWidth={false}
-    style={{ width: 900, height: 40, marginLeft: 20 }}
+    style={{ width: 900, height: 48, marginLeft: 20, backgroundColor: "white"}}
     placeholder="Search..."
     size="small"
     InputProps={{
@@ -110,7 +110,7 @@ function CarparkTable({ data, carparkInfo }: Props) {
   />
       <Select
         value={Object.entries(filters).map(([key, value]) => `${key},${value}`).join(',')}
-        onChange={handleFilterChange}
+        onChange={handleFilterChange} style={{backgroundColor: 'white'}}
       >
         <MenuItem value="nightParking,true">Night Parking</MenuItem>
         <MenuItem value="basementCarpark,true">Basement Carpark</MenuItem>
