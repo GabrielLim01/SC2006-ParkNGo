@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 // Additional pages
 import {FilterList} from "./FilterList"
-import "./App.css"
+import "./index.css"
 // import { CarparkList } from "./CarparkList";
 
 // ReactSearchKit component

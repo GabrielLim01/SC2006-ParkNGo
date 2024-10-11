@@ -9,7 +9,9 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 // Additional pages
-// import { CarparkList } from "./CarparkList";
+import { CarparkItem } from "./CarparkItem";
+
+import "./index.css"
 
 // ReactSearchKit component
 // import { ReactSearchKit, SearchBar } from 'react-searchkit';
@@ -18,8 +20,7 @@ export default function Home() {
 
   // todo: actually save in a local database
   const [saved, setSaved] = useState([])
-
-  // add a carpark information into the list
+  // add and delete a carpark information into the list
   // function addSaved(id, address, xCoord, yCoord, cpType, shortTermParking, freeParking, nightParking, gantryHeight, availLots) {
   //   setSaved(currentSaved => {
   //     return [
@@ -28,8 +29,6 @@ export default function Home() {
   //     ]
   //   })
   // }
-
-  // delete carpark information from the list
   // function deleteSaved(id) {
   //   setSaved(currentSaved => {
   //     return currentSaved.filter(item => item.id !== id)
@@ -67,9 +66,21 @@ export default function Home() {
         </ReactSearchKit> */}
 
         <h1 className="header">Saved Carpark</h1>
-        {/* <CarparkList carparkList={saved} deleteList={deleteSaved}></CarparkList> */}
+        {saved.length === 0 && "No saved carpark"}
+        <div className="card-container">
+          {saved.map(item => {
+              return <CarparkItem id={item.id} address={item.address} availLots={item.availLots}/>
+          })}
+          {/* sample carparks */}
+          <CarparkItem id="NNDN321" address="Nanyang Drive" availLots={192}/>
+          <CarparkItem id="NNDN321" address="Nanyang Drive" availLots={192}/>
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23}/>
+        </div>
 
+        
         <h1 className="header">Nearby Carpark</h1>
+
+
 
       </main>
     </div>

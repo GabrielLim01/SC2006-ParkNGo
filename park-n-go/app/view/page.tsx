@@ -66,10 +66,9 @@ export default function Home() {
           <SearchBar />
         </ReactSearchKit> */}
 
-        <h1 className="header">Saved Carpark</h1>
-        {/* <CarparkList carparkList={saved} deleteList={deleteSaved}></CarparkList> */}
-
-        <h1 className="header">Nearby Carpark</h1>
+        {
+          
+        }
 
       </main>
     </div>

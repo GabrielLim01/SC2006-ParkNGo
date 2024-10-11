@@ -1,15 +1,10 @@
-//import { useState } from "react";
-
-/*
-export function CarparkItem({ id, address, availLots, deleteList }) {
-  return <li>
-    <label>
-      {address}
-      {availLots}
-      Available lots
-      
-      <button onClick={e=>deleteList(id)} className="btn btn-danger">Delete</button>
-    </label>
-  </li>
+export function CarparkItem(props) {
+  return <>
+    <a href={"view?id="+props.id}> 
+      <div className="card">
+        <h2>{props.address}</h2>
+        <p>{props.availLots} available lots</p>
+      </div>
+    </a>
+  </>
 }
-*/

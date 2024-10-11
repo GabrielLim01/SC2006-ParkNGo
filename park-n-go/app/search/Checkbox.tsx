@@ -8,13 +8,13 @@ export function Checkbox({ title, id, filters, setFilters }){
         setFilters(newFilters)
     }
 
-    return <div>
+    return <div className="card">
         <label style={{ color: filters[id] ? 'green' : 'black' }}>
             <input type="checkbox"
                 checked={filters[id]}
                 onChange={handleChange}
             />
-            {title}
+            {" " + title}
         </label>
     </div>
     
