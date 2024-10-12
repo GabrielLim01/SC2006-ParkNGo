@@ -8,13 +8,20 @@ import { Navbar } from "flowbite-react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 
-// Additional pages
+// Additional pages and components
 // import {CarparkTable} from "./carparkInformation/carparkTable"
 import "./index.css";
 // import { CarparkList } from "./CarparkList";
 
+// import NavBar as component
+import TopNavBar from "./TopNavBar";
+
 // ReactSearchKit component
 // import { ReactSearchKit, SearchBar } from 'react-searchkit';
+
+//Google API
+import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
+const API_KEY = globalThis.NEXT_PUBLIC_GMAPS_API_KEY ?? (process.env.NEXT_PUBLIC_GMAPS_API_KEY as string);
 
 export default function Home() {
 
@@ -27,6 +34,9 @@ export default function Home() {
   const nightParking = false
   const shortTerm = "7AM-10.30PM"
   const gantryHeight = 4.50
+  // convert fromt SG latitude longitude to global system
+  const lati = 1.3521
+  const long = 103.8198
 
   // todo: actually save in a local database
   const [saved, setSaved] = useState(() => {
@@ -50,38 +60,38 @@ export default function Home() {
       return currentSaved.filter(item => item !== id)
     })
   }
-
-  
+  //map
+  const DMap = () => (
+    <APIProvider apiKey={API_KEY}>
+      <Map
+        style={{width: '70vw', height: '80vh'}}
+        defaultCenter={{lat: lati, lng: long}}
+        defaultZoom={15}
+        gestureHandling={'greedy'}
+        disableDefaultUI={true}>
+        {/* simple marker */}
+        <Marker
+          position={{lat: lati, lng: long}}
+          clickable={true}
+          onClick={() => alert('marker was clicked!')}
+          title={'clickable google.maps.Marker'}
+        />
+      </Map>
+    </APIProvider>
+  );
 
   return (
     <div>
-      <Navbar fluid rounded>
-        <a href="/dashboard"><Navbar.Brand>
-          <img
-            src="/ParkNGo_Icon.png"
-            className="mr-3 h-6 sm:h-9"
-            alt="ParkNGo Logo"
-          />
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-            ParkNGo
-          </span>
-        </Navbar.Brand></a>
-        <Navbar.Toggle />
-        <Navbar.Collapse>
-          <Navbar.Link href="/dashboard">Home</Navbar.Link>
-          <Navbar.Link href="/search">Search</Navbar.Link>
-          <Navbar.Link href="/about">About</Navbar.Link>
-          {/* <Navbar.Link href="/navbars">Contact</Navbar.Link> */}
-        </Navbar.Collapse>
-      </Navbar>
-
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <TopNavBar></TopNavBar>
+      <div className="rounded-md object-contain">
+        <DMap/>
+      </div>
 
-        
-
-        <div className="card">
+        <div className="card text-black">
           <p><b>{carparkID}</b></p>
           <p>{carparkAddr}</p>
+          <p>{API_KEY}</p>
           <p>{availLots} available lots</p>
           <p>Carpark type: {carparkType}</p>
           <p>Short term: {shortTerm}</p>
