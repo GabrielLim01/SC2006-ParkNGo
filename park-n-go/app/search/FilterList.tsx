@@ -30,7 +30,7 @@ export function FilterList({filters, setFilters}) {
             <Checkbox title="Free Parking" id={1} filters={filters} setFilters={setFilters}/>
             <Checkbox title="Night Parking" id={2} filters={filters} setFilters={setFilters}/>
 
-            <select multiple value={filters[3]} onChange={handleChangeType}>
+            <select multiple value={filters[3]} onChange={handleChangeType} style={{color:'black'}}>
                 <option value={1}>Surface</option>
                 <option value={2}>Multi-storey</option>
                 <option value={3}>Basement</option>
@@ -40,7 +40,7 @@ export function FilterList({filters, setFilters}) {
                 <option value={7}>Mechanised</option>
             </select>
             
-            <select value={filters[4]} onChange={handleChangeGantry}>
+            <select value={filters[4]} onChange={handleChangeGantry} style={{color:'black'}}>
                 <option value={0}>Gantry Height</option>
                 <option value={2}>&ge; 2 m</option>
                 <option value={3}>&ge; 3 m</option>
@@ -48,7 +48,7 @@ export function FilterList({filters, setFilters}) {
                 <option value={5}>&ge; 5 m</option> 
             </select>
 
-            <select value={filters[5]} onChange={handleChangeOpenTime}>
+            <select value={filters[5]} onChange={handleChangeOpenTime} style={{color:'black'}}>
                 <option value={0}>Open Time</option>
                 <option value={1}>07:00-19:00</option>
                 <option value={2}>07:00-22:30</option>

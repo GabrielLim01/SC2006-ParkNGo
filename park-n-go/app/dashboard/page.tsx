@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Image from "next/image";
 
 // Layout component (to be shared across all pages)
-import Layout from './/layout';
+import Layout from './Layout';
 
 // Flowbite components
 import { Navbar } from "flowbite-react";
@@ -79,7 +79,7 @@ export default function Dashboard() {
         {saved.length === 0 && "No saved carpark"}
         <div className="card-container">
           {saved.map(item => {
-            return <CarparkItem id={item.id} address={item.address} availLots={item.availLots} />
+            return <CarparkItem id={item}/>
           })}
 
           {/* sample carparks */}
@@ -99,7 +99,7 @@ export default function Dashboard() {
           <h1 className="header">Nearby Carpark</h1>
         </div>
       </main >
-      <div class="box">
+      <div className="box">
         <div></div>
         <div></div>
         <div></div>

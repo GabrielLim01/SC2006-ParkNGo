@@ -1,7 +1,13 @@
 "use client";
 
-// Flowbite components
+// React/Next.js components
+import Head from 'next/head';
 import Image from "next/image";
+
+// Layout component (to be shared across all pages)
+import Layout from './Layout';
+
+// Flowbite components
 import { Navbar } from "flowbite-react";
 
 // Bootstrap components
@@ -81,9 +87,40 @@ export default function Home() {
   );
 
   return (
-    <div>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <TopNavBar></TopNavBar>
+    <Layout>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
+      <Navbar fluid rounded className="bg-gradient-to-b from-blue-900 to-blue-600">
+
+        <Image
+          src="/images/ParkNGo_Icon.png"
+          height={100}
+          width={100}
+          alt="ParkNGo Logo"
+        />
+        <span className="text-left text-3xl font-semibold dark:text-white">
+          <h1>ParkNGo</h1>
+          <h2 className="text-base">A carpark locator application</h2>
+        </span>
+
+        <Navbar.Toggle />
+        <Navbar.Collapse>
+          <Navbar.Link href="/dashboard" active>
+            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >Home</h1>
+          </Navbar.Link>
+          <Navbar.Link href="/search">
+            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >Search</h1>
+          </Navbar.Link>
+          <Navbar.Link href="/about">
+            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >About</h1>
+          </Navbar.Link>
+          <Navbar.Link href="/contact">
+            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-8" >Contact</h1>
+          </Navbar.Link>
+        </Navbar.Collapse>
+      </Navbar>
+
       <div className="rounded-md object-contain">
         <DMap/>
       </div>
@@ -127,7 +164,6 @@ export default function Home() {
 
         </div>
 
-      </main>
-    </div>
+    </Layout>
   );
 }
