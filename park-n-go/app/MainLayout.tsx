@@ -1,41 +1,42 @@
 // React/Next.js components
 import Image from "next/image";
+import "./globals.css"
 
 // Flowbite components
 import { Navbar } from "flowbite-react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <section className="md:pl-20 pr-20">
-      <Navbar fluid rounded className="bg-gradient-to-b from-blue-900 to-blue-600">
+    <div className="h-screen overflow-hidden">
+      <Navbar fluid className="sm:px-32 bg-mainBlue py-4 h-28 w-full flex-col content-center justify-items-start">
         {/* <Image
           src="/images/ParkNGo_Icon.png"
           height={100}
           width={100}
           alt="ParkNGo Logo"
         /> */}
-        <span className="text-left text-3xl font-semibold dark:text-white pl-8">
+        <span className="text-left text-5xl font-oswald font-bold text-white">
           <h1>ParkNGo</h1>
-          <h2 className="text-base">A carpark locator application</h2>
+          <h2 className="text-base -font-sans-serif-3 font-normal">A carpark locator application</h2>
         </span>
         <Navbar.Toggle />
-        <Navbar.Collapse>
+        <Navbar.Collapse className="text-lg font-bold text-white">
           <Navbar.Link href="/dashboard">
-            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >Home</h1>
+            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white" >Home</h1>
           </Navbar.Link>
           <Navbar.Link href="/search">
-            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >Search</h1>
+            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white" >Search</h1>
           </Navbar.Link>
           <Navbar.Link href="/about">
-            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >About</h1>
+            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white" >About</h1>
           </Navbar.Link>
           <Navbar.Link href="/contact">
-            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-8" >Contact</h1>
+            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white" >Contact</h1>
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
 
-      <div>{children}</div>
+      <div className="m-32">{children}</div>
 
       {/* Animation */}
       {/* <div className="box">
@@ -50,7 +51,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div></div>
         <div></div>
       </div> */}
-    </section>
+    </div>
   );
 }
 

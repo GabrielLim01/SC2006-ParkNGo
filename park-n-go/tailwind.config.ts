@@ -10,19 +10,26 @@ const config: Config = {
     flowbite.content(),
   ],
   theme: {
+    colors: {
+      mainBlue : "#04266C",
+      secBlue : "#2541B2",
+      dGrey : "#716E77",
+      lGrey : "E2E4EF",
+      lightBlue : "06BEE1",
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      }
-      // fontFamily: {
-      //   'sans': ['ui-sans-serif', 'system-ui', ...],
-      //   'serif': ['ui-serif', 'Georgia', ...],
-      //   'mono': ['ui-monospace', 'SFMono-Regular', ...],
-      //   'display': ['Oswald', ...],
-      //   'body': ['"Open Sans"', ...],
-      // }
+      },
+      fontFamily: {
+        'sans': ['ui-sans-serif', 'system-ui'],
+        'serif': ['ui-serif', 'Georgia'],
+        'mono': ['ui-monospace', 'SFMono-Regular'],
+        'oswald' : ['var(--font-oswald)'],
+        'sans-serif-3' : ['var(--font-source-sans-3)']
+      },
     }
   },
   plugins: [

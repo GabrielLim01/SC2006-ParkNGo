@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import {Oswald, Source_Sans_3} from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const oswald = Oswald({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-oswald',
+})
+
+const source_sans_3 = Source_Sans_3({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-source-sans-3',
+})
 
 export const metadata: Metadata = {
   title: "ParkNGo Application"
@@ -14,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${oswald.variable} ${source_sans_3.variable}`}>
       <body>{children}</body>
     </html>
   );

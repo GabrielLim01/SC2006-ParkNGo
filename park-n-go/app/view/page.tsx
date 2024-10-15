@@ -19,7 +19,7 @@ import "./index.css";
 // import { ReactSearchKit, SearchBar } from 'react-searchkit';
 
 // Google API
-// import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 const API_KEY = globalThis.NEXT_PUBLIC_GMAPS_API_KEY ?? (process.env.NEXT_PUBLIC_GMAPS_API_KEY as string);
 
 export default function Home() {
