@@ -1,5 +1,11 @@
 "use client";
 
+// React/Next.js components
+import Head from 'next/head';
+
+// Main layout
+import Layout from "../../MainLayout";
+
 import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';
 import Papa from 'papaparse';
@@ -86,12 +92,17 @@ function Carpark() {
   }
 
   return (
-    <div>
-      <h1 style={{marginLeft: 270, fontSize: 45, fontFamily: "Open Sans"}}>Carpark Availability</h1>
-      <Suspense fallback={<div>Loading...</div>}>
-        <CarparkTable data={data} carparkInfo={carparkInfo} />
-      </Suspense>
-    </div>
+    <Layout>
+      <Head>
+        <title>Carpark Information</title>
+      </Head>
+      <main className="flex min-h-screen flex-col items-center justify-between">
+        <h1 style={{ fontSize: 45, fontFamily: "Open Sans" }}>Carpark Availability</h1>
+        <Suspense fallback={<div>Loading...</div>}>
+          <CarparkTable data={data} carparkInfo={carparkInfo} />
+        </Suspense>
+      </main>
+    </Layout>
   );
 }
 

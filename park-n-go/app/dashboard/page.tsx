@@ -2,14 +2,10 @@
 
 // React/Next.js components
 import Head from 'next/head';
-import Image from "next/image";
+import Link from "next/link";
 
 // Layout component (to be shared across all pages)
-import Layout from './Layout';
-
-// Flowbite components
-import { Navbar } from "flowbite-react";
-// import type { CustomFlowbiteTheme } from "flowbite-react";
+import Layout from '../MainLayout';
 
 // Bootstrap components
 import { Button, Col, Container, Row } from "react-bootstrap";
@@ -40,37 +36,8 @@ export default function Dashboard() {
       <Head>
         <title>Dashboard</title>
       </Head>
-      <Navbar fluid rounded className="bg-gradient-to-b from-blue-900 to-blue-600">
-
-        <Image
-          src="/images/ParkNGo_Icon.png"
-          height={100}
-          width={100}
-          alt="ParkNGo Logo"
-        />
-        <span className="text-left text-3xl font-semibold dark:text-white">
-          <h1>ParkNGo</h1>
-          <h2 className="text-base">A carpark locator application</h2>
-        </span>
-
-        <Navbar.Toggle />
-        <Navbar.Collapse>
-          <Navbar.Link href="/dashboard" active>
-            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >Home</h1>
-          </Navbar.Link>
-          <Navbar.Link href="/search">
-            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >Search</h1>
-          </Navbar.Link>
-          <Navbar.Link href="/about">
-            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >About</h1>
-          </Navbar.Link>
-          <Navbar.Link href="/contact">
-            <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-8" >Contact</h1>
-          </Navbar.Link>
-        </Navbar.Collapse>
-      </Navbar>
       <main className="bg-white flex min-h-screen flex-col items-center justify-between text-black p-8">
-
+        <Link href="/dashboard/carparkInformation"><h1>View Carpark Information here</h1></Link>
         {/* <ReactSearchKit>
           <SearchBar />
         </ReactSearchKit> */}
@@ -99,18 +66,6 @@ export default function Dashboard() {
           <h1 className="header">Nearby Carpark</h1>
         </div>
       </main >
-      <div className="box">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
     </Layout >
   );
 }
