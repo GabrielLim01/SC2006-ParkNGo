@@ -36,14 +36,13 @@ export default function Dashboard() {
       <Head>
         <title>Dashboard</title>
       </Head>
-      <main className="bg-white flex min-h-screen flex-col items-center justify-between text-black p-8">
+      <main className="bg-white min-h-screen flex-col items-center justify-between text-black p-8">
         <Link href="/dashboard/carparkInformation"><h1>View Carpark Information here</h1></Link>
         {/* <ReactSearchKit>
           <SearchBar />
         </ReactSearchKit> */}
 
-        <h1 className="header">Saved Carpark</h1>
-        {saved.length === 0 && "No saved carpark"}
+        <h1 className="text-3xl pt-8">Saved Carparks</h1>
         <div className="card-container">
           {saved.map(item => {
             return <CarparkItem id={item}/>
@@ -62,9 +61,28 @@ export default function Dashboard() {
           <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
           <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
         </div >
-        <div className="flex flex-col items-center justify-between p-24">
-          <h1 className="header">Nearby Carpark</h1>
-        </div>
+
+        {/* saved.length === 0 && "No saved carpark" */}
+
+        <h1 className="text-3xl pt-8">Nearby Carparks</h1>
+        <div className="card-container">
+          {saved.map(item => {
+            return <CarparkItem id={item}/>
+          })}
+
+          {/* sample carparks */}
+          <CarparkItem id="NNDN321" address="Nanyang Drive" availLots={192} />
+          <CarparkItem id="NNDN321" address="Nanyang Drive" availLots={192} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
+        </div >
       </main >
     </Layout >
   );

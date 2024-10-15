@@ -8,19 +8,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <section className="md:pl-20 pr-20">
       <Navbar fluid rounded className="bg-gradient-to-b from-blue-900 to-blue-600">
-        <Image
+        {/* <Image
           src="/images/ParkNGo_Icon.png"
           height={100}
           width={100}
           alt="ParkNGo Logo"
-        />
-        <span className="text-left text-3xl font-semibold dark:text-white">
+        /> */}
+        <span className="text-left text-3xl font-semibold dark:text-white pl-8">
           <h1>ParkNGo</h1>
           <h2 className="text-base">A carpark locator application</h2>
         </span>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Navbar.Link href="/dashboard" active>
+          <Navbar.Link href="/dashboard">
             <h1 className="self-center whitespace-nowrap text-xl font-semibold text-white pr-4" >Home</h1>
           </Navbar.Link>
           <Navbar.Link href="/search">
@@ -37,7 +37,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <div>{children}</div>
 
-      <div className="box">
+      {/* Animation */}
+      {/* <div className="box">
         <div></div>
         <div></div>
         <div></div>
@@ -48,7 +49,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div></div>
         <div></div>
         <div></div>
-      </div>
+      </div> */}
     </section>
   );
 }
