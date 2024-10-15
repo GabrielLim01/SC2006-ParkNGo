@@ -18,24 +18,46 @@ import "./index.css";
 // ReactSearchKit component
 // import { ReactSearchKit, SearchBar } from 'react-searchkit';
 
+import Papa from 'papaparse';
+
 // Google API
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 const API_KEY = globalThis.NEXT_PUBLIC_GMAPS_API_KEY ?? (process.env.NEXT_PUBLIC_GMAPS_API_KEY as string);
 
 export default function Home() {
+  const [data, setData] = useState([]);
+  const [index, setIndex] = useState(-1);
+  
+  const queryParameters = new URLSearchParams(window.location.search)
+  useEffect(() => {
+    fetch("./names.csv")
+      .then(response => response.text())
+      .then(responseText => {
+        const parsedData = Papa.parse(responseText);
+        setData(parsedData.data);
+        
+        const foundIndex = parsedData.data.findIndex(x => x[0] === queryParameters.get("id"));
+        setIndex(foundIndex);
+
+        console.log(queryParameters.get("id"),foundIndex, parsedData.data);
+      });
+  }, []);
 
   // todo: fetch this particular carpark info from somewherw??!?!
-  const carparkID = "NNDN"
-  const carparkAddr = "Nanyang Drive"
-  const availLots = 192
-  const carparkType = "MULTI-STOREY"
-  const freeParking = true
-  const nightParking = false
-  const shortTerm = "7AM-10.30PM"
-  const gantryHeight = 4.50
+  const carparkID = queryParameters.get("id")
+  const carparkInfo = index !== -1 ? data[index] : null;
+  const carparkAddr = carparkInfo ? carparkInfo[1] : "N/A"; 
+  const availLots = 0 //Need to extract this
+  const carparkType = carparkInfo ? carparkInfo[4] : "Unknown"; 
+  const freeParking = carparkInfo ? carparkInfo[7] : false;
+  const nightParking = carparkInfo ? carparkInfo[8] : false; 
+  const shortTerm = carparkInfo ? carparkInfo[5] : "N/A"; 
+  const gantryHeight = carparkInfo ? carparkInfo[10] : "Loading"; 
+
   // convert fromt SG latitude longitude to global system
-  const lati = 1.3521
-  const long = 103.8198
+  const lati = carparkInfo ? parseFloat(carparkInfo[2]) :1.3521
+  const long = carparkInfo ? parseFloat(carparkInfo[3]) :103.8198
+  //console.log(lati,long)
 
   // todo: actually save in a local database
   const [saved, setSaved] = useState(() => {
@@ -96,13 +118,8 @@ export default function Home() {
         <p>{availLots} available lots</p>
         <p>Carpark type: {carparkType}</p>
         <p>Short term: {shortTerm}</p>
-        <p>Gantry height: {gantryHeight}m</p>
-
-        {freeParking ?
-          <p style={{ color: 'green' }}>Free parking allowed</p>
-          :
-          <p style={{ color: 'red' }}>No free parking</p>
-        }
+        <p>Gantry height: {gantryHeight}</p>
+        <p>Free Parking: {freeParking}</p>
 
         {nightParking ?
           <p style={{ color: 'green' }}>Night parking allowed</p>

@@ -49,7 +49,7 @@ export default function Dashboard() {
           })}
 
           {/* sample carparks */}
-          <CarparkItem id="NNDN321" address="Nanyang Drive" availLots={192} />
+          <CarparkItem id="ACB" address="Albert Centre Basement" availLots={192} />
           <CarparkItem id="NNDN321" address="Nanyang Drive" availLots={192} />
           <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
           <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} />
