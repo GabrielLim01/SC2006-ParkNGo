@@ -2,54 +2,60 @@
 
 // React/Next.js components
 import Head from 'next/head';
-import Link from "next/link";
 
 // Layout component (to be shared across all pages)
 import Layout from '../MainLayout';
 
-// Bootstrap components
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
-
-// Additional pages
-// import "./index.css"
-
-// ReactSearchKit component
-// import { ReactSearchKit, SearchBar } from 'react-searchkit';
-
-// const customTheme: CustomFlowbiteTheme["navbar"] = {
-//   color: {
-//     primary: linear-gradient(180deg, rgba(2,0,.6,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
-//   },
-// };
-
 export default function Dashboard() {
-
   return (
     <Layout>
       <Head>
-        <title>About</title>
+        <title>Dashboard</title>
       </Head>
       <main className="bg-white min-h-screen flex-col items-center justify-between text-black">
+        {/* About Us Section */}
+      <section className="w-full max-w-4xl">
+        <h2 className="text-7xl font-bold text-blue-700">About Us</h2>
+        <p className="mt-4 text-gray-600 text-2xl">
+          Skip the hunt, park in a snap!
+        </p>
+      </section>
 
-      <h1 style={{fontSize: '30px'}}><b>About ParkNGo</b></h1>
-      <p>
-        ParkNGo is your go-to app for making parking stress-free and simple. Whether you're heading to a busy city center or exploring a new place, ParkNGo is designed to help drivers plan their trips and easily find available parking spots—saving both time and hassle.
-      </p>
+      {/* Main Content Section */}
+      <section className="w-full max-w-4xl mt-8">
+        <div className="flex flex-col md:flex-row">
+          {/* Left side content */}
+          <div className="w-full md:w-1/2 text-left">
+            <h3 className="text-3xl font-semibold text-gray-800">
+            Say goodbye to frustration and hello to a smoother parking experience.
+            </h3>
+            <p className="mt-4 text-gray-600 text-lg">
+            Tired of circling around endlessly to find a parking spot? 
+            Our website is designed to take the stress out of parking. With real-time updates, 
+            it helps you quickly locate available carparks nearby within 2km, 
+            so you can focus on getting where you need to go.
+            </p>
+            <p className="mt-4 text-gray-600 text-lg">
+            Whether you're heading to work, running errands, 
+            or out for an adventure, our website makes parking easy and convenient.
+            </p>
+          </div>
+          
+          <div className="md:w-1/2 mt-8 md:mt-0 flex flex-row justif">
+            <img
+              src="/images/GantryHDB.png" 
+              alt="gantryimage"
+              className="ml-8 w-full h-auto rounded-lg shadow-lg"
+            />
+            <img
+              src="/images/CarparkHDB.png" 
+              alt="carparkhdb"
+              className="ml-4 w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </section>
       
-      <h1 style={{fontSize: '30px'}}><b>Our Mission</b></h1>
-      At ParkNGo, our mission is to provide a seamless way for people to plan their trips by offering real-time parking availability and personalized carpark recommendations. No more endless circling or worrying about finding a spot—just park and go!
-
-      <h1 style={{fontSize: '30px'}}><b>Who We Serve</b></h1>
-      ParkNGo is built for the general public, especially drivers who want a more efficient way to find parking in urban areas or during busy times. Whether you’re commuting, running errands, or exploring a new city, ParkNGo is here to make parking one less thing to worry about.
-
-      <h1 style={{fontSize: '30px'}}><b>Key Features</b></h1>
-      Real-Time Parking Availability: Get live updates on parking spaces near your destination.
-      Carpark Recommendations: ParkNGo suggests nearby carparks based on your location, making it easier for you to find the best spot.
-
-      <h1 style={{fontSize: '30px'}}><b>Meet the Team</b></h1>
-      ParkNGo is a project developed by <b>SC2006 SCS5 Group 11</b>, a team of undergraduate students passionate about solving everyday problems with innovative tech solutions. We're working hard to make parking more convenient for everyone, and we're excited to share our journey with you.
-
       </main >
     </Layout>
   );
