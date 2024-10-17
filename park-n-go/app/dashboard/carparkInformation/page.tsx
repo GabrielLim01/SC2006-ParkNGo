@@ -18,6 +18,7 @@ interface CarparkInfo {
   free_parking: string;
   night_parking: string;
   car_park_basement: string;
+  gantry_height: number;
 }
 
 interface CarparkData {
@@ -97,7 +98,7 @@ function Carpark() {
         <title>Carpark Information</title>
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-between">
-        <h1 style={{ fontSize: 45, fontFamily: "Open Sans" }}>Carpark Availability</h1>
+        <h1 style={{ fontSize: 45,  color: "black" }}>Carpark Availability</h1>
         <Suspense fallback={<div>Loading...</div>}>
           <CarparkTable data={data} carparkInfo={carparkInfo} />
         </Suspense>

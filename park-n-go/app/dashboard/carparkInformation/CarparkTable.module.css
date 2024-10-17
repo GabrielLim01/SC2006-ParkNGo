@@ -27,6 +27,56 @@
   margin-right: 10px;
 }
 
+.filter-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  width: 250px; /* Adjust width as needed */
+}
+
+.filter-title {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.filter-list {
+  list-style-type: none;
+  padding: 0;
+  
+}
+
+.CarparkFilter .filter-container {
+  float: left;
+  width: 250px; /* adjust the width as needed */
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.filter-checkbox {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.filter-label {
+  cursor: pointer;
+  font-size: 1em;
+  color: #555;
+}
+
+.filter-checkbox:checked + .filter-label {
+  font-weight: bold;
+  color: #007BFF; /* Change color when checked */
+}
+
+.filter-item:hover .filter-label {
+  color: #007BFF; /* Change color on hover */
+}
 
 
 .filter-dropdown {

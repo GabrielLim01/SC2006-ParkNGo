@@ -25,7 +25,8 @@ interface Props {
 
 function CarparkTable({ data, carparkInfo }: Props) {
   return (
-    <table>
+    <div className='lg:w-9/12 w-full px-6 mx-auto'>
+      <table>
       <thead>
         <tr>
           <th>Carpark Number</th>
@@ -59,6 +60,7 @@ function CarparkTable({ data, carparkInfo }: Props) {
         ))}
       </tbody>
     </table>
+    </div>
   );
 }
 
