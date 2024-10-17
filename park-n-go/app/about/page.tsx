@@ -12,7 +12,7 @@ export default function Dashboard() {
       <Head>
         <title>Dashboard</title>
       </Head>
-      <main className="bg-white min-h-screen flex-col items-center justify-between text-black">
+      <main className="bg-white flex-col items-center justify-between text-black">
         {/* About Us Section */}
       <section className="w-full max-w-4xl">
         <h2 className="text-7xl font-bold text-blue-700">About Us</h2>

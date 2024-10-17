@@ -45,7 +45,7 @@ export default function Home() {
       <Head>
         <title>Search</title>
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-between">
+      <main className="flex flex-col items-center justify-between">
         {/* <ReactSearchKit>
           <SearchBar />
         </ReactSearchKit> */}

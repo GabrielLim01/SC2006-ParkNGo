@@ -7,7 +7,7 @@ import { Navbar } from "flowbite-react";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen">
       <Navbar fluid className="sm:px-32 bg-mainBlue py-4 h-28 w-full flex-col content-center justify-items-start">
         {/* <Image
           src="/images/ParkNGo_Icon.png"

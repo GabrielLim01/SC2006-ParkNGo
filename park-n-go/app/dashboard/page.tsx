@@ -36,7 +36,7 @@ export default function Dashboard() {
       <Head>
         <title>Dashboard</title>
       </Head>
-      <main className="bg-white min-h-screen flex-col items-center justify-between text-black">
+      <main className="bg-white flex-col items-center justify-between text-black">
         <Link href="/dashboard/carparkInformation"><h1>View Carpark Information here</h1></Link>
         {/* <ReactSearchKit>
           <SearchBar />
