@@ -36,7 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Navbar.Collapse>
       </Navbar>
 
-      <div className="m-32">{children}</div>
+      <div className="mx-32 mt-16">{children}</div>
 
       {/* Animation */}
       {/* <div className="box">
