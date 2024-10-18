@@ -23,19 +23,46 @@ import "./index.css";
 import { AdvancedMarker, APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 const API_KEY = globalThis.NEXT_PUBLIC_GMAPS_API_KEY ?? (process.env.NEXT_PUBLIC_GMAPS_API_KEY as string);
 
+import axios from 'axios';
+import Papa from 'papaparse';
+
+interface CarparkInfo {
+  car_park_no: string;
+  address: string;
+  car_park_type: string;
+  type_of_parking_system: string;
+  free_parking: string;
+  night_parking: string;
+  car_park_basement: string;
+  gantry_height: number;
+}
+
+interface CarparkData {
+  items: {
+    carpark_data: {
+      carpark_number: string;
+      carpark_info: {
+        lots_available: number;
+      };
+    }[];
+  };
+}
+
+
 
 
 export default function Home() {
 
   // todo: fetch this particular carpark info from somewherw??!?!
-  const carparkID = "NNDN"
-  const carparkAddr = "Nanyang Drive"
-  const availLots = 192
-  const carparkType = "MULTI-STOREY"
-  const freeParking = true
-  const nightParking = false
-  const shortTerm = "7AM-10.30PM"
-  const gantryHeight = 4.50
+  const id = "ACM";
+  // const carparkID = "NNDN"
+  // const carparkAddr = "Nanyang Drive"
+  // const availLots = 192
+  // const carparkType = "MULTI-STOREY"
+  // const freeParking = true
+  // const nightParking = false
+  // const shortTerm = "7AM-10.30PM"
+  // const gantryHeight = 4.50
 
   const location = {
     lat : 1.3521,
@@ -47,7 +74,7 @@ export default function Home() {
 
   // todo: actually save in a local database
   const [saved, setSaved] = useState(() => {
-    const localValue = localStorage.getItem("SAVED")
+    const localValue = localStorage.getItem("saved")
     if (localValue == null) return []
     return JSON.parse(localValue)
   })
@@ -102,7 +129,56 @@ export default function Home() {
   }, [saved])
 
 
-  // add a carpark information into the list
+  const [data, setData] = useState<CarparkData | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+  const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: 'https://api.data.gov.sg/v1/transport/carpark-availability',
+      timeout: 10000, // Set a timeout of 10 seconds
+    };
+
+    setLoading(true);
+
+    axios.request(options)
+      .then(response => {
+        console.log('API Response:', response.data);
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('API Error:', error);
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    const csvData = Papa.parse("/names.csv", {
+      header: true,
+      download: true,
+      skipEmptyLines: true,
+      delimiter: ",",
+      complete: (results) => {
+        console.log("CSV Data:", results.data);
+        setCarparkInfo(results.data);
+      },
+      error: (error) => {
+        console.error("CSV Error:", error);
+      },
+    });
+  }, []);
+
+  console.log('Data State:', data);
+
+  
+
+
+
+  // add/delete a carpark information into saved list
   function addSaved(id) {
     setSaved(currentSaved => {
       return [...currentSaved, id]
@@ -112,6 +188,21 @@ export default function Home() {
     setSaved(currentSaved => {
       return currentSaved.filter(item => item !== id)
     })
+  }
+  useEffect(() => {
+    localStorage.setItem('saved', JSON.stringify(saved));
+  }, [saved]);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!data) {
+    return <div>No data available</div>;
   }
 
   //map
@@ -174,43 +265,63 @@ export default function Home() {
 
       </Head>
 
+
       <div className="h-screen flex justify-center pt-10">
         <div className='w-1/2 h-4/5 items-center rounded-lg mr-8'><DMap loc={location}/></div>
 
         <div className="card text-black w-1/3 h-4/5">
-          <p><b>{carparkID}</b></p>
-          <p>{carparkAddr}</p>
-          <p>{availLots} available lots</p>
-          <p>Carpark type: {carparkType}</p>
-          <p>Short term: {shortTerm}</p>
-          <p>Gantry height: {gantryHeight}m</p>
 
-          {freeParking ?
-            <p style={{ color: 'green' }}>Free parking allowed</p>
-            :
-            <p style={{ color: 'red' }}>No free parking</p>
-          }
+          {carparkInfo.map((myCarpark) => (
+          <>
+          {myCarpark.car_park_no === id && (
+            <div>
+              <p><b>{myCarpark.car_park_no}</b></p>
+              <p>{myCarpark.address}</p>
 
-          {nightParking ?
-            <p style={{ color: 'green' }}>Night parking allowed</p>
-            :
-            <p style={{ color: 'red' }}>No night parking</p>
-          }
+              {data.items[0].carpark_data.map((carpark) => (
+              <>
+                {carpark.carpark_number === id && (
+                  <tr>
+                    <td>Availability:</td>
+                    <td>{carpark.carpark_info[0].lots_available}</td>
+                  </tr>
+                )}
+              </>
+              ))}
 
-          {/* {true? */}
-          {saved.includes(carparkID) ?
-            <button onClick={e => deleteSaved(carparkID)}
-              style={{ color: 'red', backgroundColor: 'hsla(350,100%,72%,0.5)' }}
-              className="btn">
-              Unsave
-            </button>
-            :
-            <button onClick={e => addSaved(carparkID)}
-              style={{ color: 'blue', background: 'hsl(200,100%,50%,0.5)' }}
-              className="btn">
-              Save
-            </button>
-          }
+              <p>Carpark type: {myCarpark.car_park_type}</p>
+              <p>Short term: {myCarpark.type_of_parking_system}</p>
+              <p>Gantry height: {myCarpark.gantry_height}m</p>
+              {myCarpark.free_parking ?
+                <p style={{ color: 'green' }}>Free parking allowed</p>
+              : <p style={{ color: 'red' }}>No free parking</p>
+              }
+              {myCarpark.night_parking ?
+                <p style={{ color: 'green' }}>Night parking allowed</p>
+              : <p style={{ color: 'red' }}>No night parking</p>
+              }
+
+              {/* {true? */}
+              {saved.includes(id) ?
+                <button onClick={e => deleteSaved(id)}
+                  style={{ color: 'red', backgroundColor: 'hsla(350,100%,72%,0.5)' }}
+                  className="btn">
+                  Unsave
+                </button>
+                :
+                <button onClick={e => addSaved(id)}
+                  style={{ color: 'blue', background: 'hsl(200,100%,50%,0.5)' }}
+                  className="btn">
+                  Save
+                </button>
+              }
+            </div>
+          )}
+          </>
+          
+        ))}
+
+          
         </div>
 
       </div>
