@@ -9,6 +9,7 @@ import Layout from './../MainLayout';
 // Bootstrap components
 import { Button, Col, Container, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
+// import { useParams } from 'react-router-dom';
 
 // Additional pages and components
 // import {CarparkTable} from "./carparkInformation/carparkTable"
@@ -21,6 +22,8 @@ import "./index.css";
 // Google API
 import { AdvancedMarker, APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
 const API_KEY = globalThis.NEXT_PUBLIC_GMAPS_API_KEY ?? (process.env.NEXT_PUBLIC_GMAPS_API_KEY as string);
+
+
 
 export default function Home() {
 
