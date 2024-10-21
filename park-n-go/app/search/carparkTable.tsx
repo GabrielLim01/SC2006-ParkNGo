@@ -47,6 +47,13 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
     maxGantryHeight: 3,
   });
 
+  // carpark type
+  const [filter3, setFilter3] = useState("ANY")
+  const handleFilter3 = (event)=>{
+    setFilter3(event.target.value)
+  }
+
+  // no of displayed entries
   const [noOfEntries, setNoOfEntries] = useState(10);
   const handleIncreaseEntries = () =>{
     setNoOfEntries(noOfEntries + 5)
@@ -69,9 +76,6 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
       if (filters1.nightParking) {
         isValid = isValid && info.night_parking === 'YES';
       }
-      if (filters1.basementCarpark) {
-        isValid = isValid && info.car_park_basement === 'Y';
-      }
       if (filters1.freeParking) {
         isValid = isValid && info.free_parking !== 'NO';
       }
@@ -86,6 +90,10 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
         );
       }
 
+      if(filter3 != "ANY"){
+        isValid = isValid && info.car_park_type==filter3;
+      }
+
       // Check gantry height filters
       isValid = isValid && info.gantry_height >= filters2.minGantryHeight && info.gantry_height <= filters2.maxGantryHeight;
 
@@ -93,17 +101,19 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
     });
 
     setFilteredCarparkInfo(filteredInfo);
-  }, [filters1, searchTerm, filters2, carparkInfo]);
+  }, [filters1, searchTerm, filters2, carparkInfo, filter3]);
 
   useEffect(() => {
     filterCarparkInfo();
-  }, [carparkInfo, searchTerm, filters1, filters2]); // Include filters2 in the dependency array
+  }, [carparkInfo, searchTerm, filters1, filters2, filter3]);
 
   const handleGantryHeightChange = (minGantryHeight: number, maxGantryHeight: number) => {
     setFilters2({ minGantryHeight, maxGantryHeight });
   };
   return (
     <div className="flex flex-col w-full font-poppins">
+      {/* <p style={{color:'black'}}>This is filter3: {filter3}</p> */}
+
       <div className="flex justify-center mt-10">
         <CarparkSearch
           searchTerm={searchTerm}
@@ -111,13 +121,26 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
         />
       </div>
       <div className="flex justify-center flex-col mt-10 lg:flex-row items-start mx-auto md:w-11/12">
+        
+        {/* this is the filters for user to set */}
         <div className="md:w-3/12 w-full flex flex-col px-4 justify-center items-start mx-auto">
           <div className="my-8 w-full">
+            <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Parking Options</div>
+            <CarparkFilter filters={filters1} setFilters={setFilters1}/>
+          </div>
+          <div className="my-8 w-full">
             <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Type of Carparks</div>
-            <CarparkFilter
-              filters={filters1}
-              setFilters={setFilters1}
-            />
+            <div style={{margin:'10px', display:'flex'}}>
+              <select style={{width:'100%', color:'black'}} value={filter3} onClick={handleFilter3}>
+                <option value="ANY">ANY</option>
+                <option value="SURFACE CAR PARK">SURFACE CAR PARK</option>
+                <option value="MULTI-STOREY CAR PARK">MULTI-STOREY CAR PARK</option>
+                <option value="BASEMENT CAR PARK">BASEMENT CAR PARK</option>
+                <option value="SURFACE/MULTI-STOREY CAR PARK">SURFACE/MULTI-STOREY CAR PARK</option>
+                <option value="COVERED CAR PARK">COVERED CAR PARK</option>
+                <option value="MECHANISED AND SURFACE CAR PARK">MECHANISED AND SURFACE CAR PARK</option>
+              </select>
+            </div>
           </div>
           <div className='my-8 w-full'>
             <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Gantry Height</div>
@@ -131,33 +154,27 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
             <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Number of Entries</div>
             <div style={{display:'flex', justifyContent: 'space-around', alignItems: 'center', margin:'10px' }}>
               <Button variant="contained" color="primary" onClick={handleDecreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>-</b></Button>
-              {/* <button className='button' onClick={handleDecreaseEntries} style={{color:'black'}}>-</button> */}
               <div style={{color:'black', fontSize: '30px'}}>{noOfEntries}</div>
               <Button variant="contained" color="primary" onClick={handleIncreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>+</b></Button>
-              {/* <button className='button' onClick={handleIncreaseEntries} style={{color:'black'}}> + </button> */}
             </div>
             
           </div>
         </div>
+
+
+        {/* this is the filter result */}
         <div className="lg:w-9/12 w-full px-6 mx-auto pl-0">
           {filteredCarparkInfo.slice(0, noOfEntries).map((info, index) => (
             <Card key={index} style={{ margin: 20, width: 900, 'backgroundColor': '#e0fffb' }} className={styles.cardHover}>
               <CardHeader title={info.car_park_no} />
               <CardContent>
+                
+
                 <table className="table table-striped table-bordered table-hover">
                   <tbody>
-                    <tr>
-                      <td>Address:</td>
-                      <td>{info.address}</td>
-                    </tr>
-                    <tr>
-                      <td>Type:</td>
-                      <td>{info.car_park_type}</td>
-                    </tr>
-                    <tr>
-                      <td>Type of Parking System:</td>
-                      <td>{info.type_of_parking_system}</td>
-                    </tr>
+                    <tr><td className="w-1/4">Address:</td><td>{info.address}</td></tr>
+                    <tr><td className="w-1/4">Carpark Type:</td><td>{info.car_park_type}</td></tr>
+                    <tr><td className="w-1/4">Parking System:</td><td>{info.type_of_parking_system}</td></tr>
                     {data.items && data.items[0] && data.items[0].carpark_data && (
                       <React.Fragment>
                         {data.items[0].carpark_data.map((carpark) => (
@@ -172,17 +189,19 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                         ))}
                       </React.Fragment>
                     )}
+
+                    
+                    
                   </tbody>
                 </table>
                 <div className={styles.cardInfo}>
-                  <p>Address:       {info.address}</p>
-                  <p>Carpark Type:        {info.car_park_type}</p>
-                  <p>Type of Parking System:       {info.type_of_parking_system}</p>
-                  <p>Free Parking: {info.free_parking}</p>
-                  <p>Night Parking: {info.night_parking}</p>
-                  <p>Basement Carpark: {info.car_park_basement === 'N'? 'No' : 'Yes'}</p>
-                  <p>Gantry Height: {info.gantry_height}</p>
-                  {/* add more information as needed */}
+                  <table className="table table-striped table-bordered table-hover">
+                    <tbody>
+                      <tr><td className="w-38">Free Parking:</td><td>{info.free_parking}</td></tr>
+                      <tr><td className="w-38">Night Parking:</td><td>{info.night_parking}</td></tr>
+                      <tr><td className="w-38">Gantry Height:</td><td>{info.gantry_height}</td></tr>
+                    </tbody>
+                  </table>
                 </div>
               </CardContent>
             </Card>

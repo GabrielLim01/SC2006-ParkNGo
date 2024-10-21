@@ -54,7 +54,7 @@ const GantryHeightSlider: React.FC<GantryHeightSliderProps> = ({
         <p style={{ color: "black" }}>Max Gantry Height: {value[1]} meters</p>
       </div>
       <div style={{display:'flex', justifyContent:'center', margin:'10px'}}>
-        <Button variant="contained" color="primary" onClick={resetSlider}>
+        <Button variant="contained" color="primary" onClick={resetSlider} style={{fontSize:'16px'}}>
           Reset to Default
         </Button>
       </div>

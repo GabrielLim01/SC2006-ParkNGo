@@ -11,9 +11,9 @@ interface FilterProps {
 }
 
 const filterOptions = [
-  { label: 'Night Parking', value: 'nightParking' },
-  { label: 'Basement Carpark', value: 'basementCarpark' },
   { label: 'Free Parking', value: 'freeParking' },
+  { label: 'Night Parking', value: 'nightParking' },
+  // { label: 'Basement Carpark', value: 'basementCarpark' },
   // Add more filter options as needed
 ];
 
@@ -24,7 +24,7 @@ const CarparkFilter: React.FC<FilterProps> = ({ filters, setFilters }) => {
   };
 
   return (
-    <div className="filter-container">
+    <div className="filter-container" style={{margin:'1px'}}>
       <h2 className="filter-title">Type of Carpark</h2>
       <ul className="filter-list">
         {filterOptions.map((option) => (

@@ -6,7 +6,7 @@
 .cardHover:hover {
   background-color: #f5f5f5; /* or any other background color you prefer */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  transform: translateY(-10px); /* add this to make the card hover up */
+  transform: translateY(-5px); /* add this to make the card hover up */
 }
 
 .cardInfo {
