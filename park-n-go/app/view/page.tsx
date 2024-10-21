@@ -269,7 +269,7 @@ export default function Home() {
       <div className="h-screen flex justify-center pt-10">
         <div className='w-1/2 h-4/5 items-center rounded-lg mr-8'><DMap loc={location}/></div>
 
-        <div className="card text-black w-1/3 h-2/5">
+        <div className="card text-black w-1/3 h-4/5">
 
           {carparkInfo.map((myCarpark) => (
           <>

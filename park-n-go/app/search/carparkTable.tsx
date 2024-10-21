@@ -44,7 +44,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
   });
   const [filters2, setFilters2] = useState({
     minGantryHeight: 0,
-    maxGantryHeight: 3,
+    maxGantryHeight: 10,
   });
 
   // carpark type
@@ -59,7 +59,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
     setNoOfEntries(noOfEntries + 5)
   }
   const handleDecreaseEntries = () =>{
-    if(noOfEntries > 10){
+    if(noOfEntries > 5){
       setNoOfEntries(noOfEntries - 5)
     }
   }
@@ -108,7 +108,9 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
   }, [carparkInfo, searchTerm, filters1, filters2, filter3]);
 
   const handleGantryHeightChange = (minGantryHeight: number, maxGantryHeight: number) => {
-    setFilters2({ minGantryHeight, maxGantryHeight });
+    if(minGantryHeight <= maxGantryHeight){
+      setFilters2({ minGantryHeight, maxGantryHeight });
+    }
   };
   return (
     <div className="flex flex-col w-full font-poppins">
