@@ -30,7 +30,7 @@ const GantryHeightSlider: React.FC<GantryHeightSliderProps> = ({
   const resetSlider = () => {
     // Reset the slider to the original min and max values
     minGantryHeight = 0;
-    maxGantryHeight = 3;
+    maxGantryHeight = 10;
     setValue([minGantryHeight, maxGantryHeight]);
     onGantryHeightChange(minGantryHeight, maxGantryHeight);
   };
@@ -41,20 +41,23 @@ const GantryHeightSlider: React.FC<GantryHeightSliderProps> = ({
         orientation='horizontal'
         value={value}
         onChange={handleChange}
+        aria-labelledby="range-slider"
         valueLabelDisplay="auto"
-        min={minGantryHeight}
-        max={maxGantryHeight}
+        min={0}
+        max={10}
       />
-      <Typography style={{ color: "black" }}>
+      {/* <Typography style={{ color: "black" }}>
         Current value: {value.join(' - ')}
-      </Typography>
+      </Typography> */}
       <div>
-        <p style={{ color: "black" }}>Min Gantry Height: {value[0]}m</p>
-        <p style={{ color: "black" }}>Max Gantry Height: {value[1]}m</p>
+        <p style={{ color: "black" }}>Min Gantry Height: {value[0]} meters</p>
+        <p style={{ color: "black" }}>Max Gantry Height: {value[1]} meters</p>
       </div>
-      <Button variant="contained" color="primary" onClick={resetSlider}>
-        Reset to Max
-      </Button>
+      <div style={{display:'flex', justifyContent:'center', margin:'10px'}}>
+        <Button variant="contained" color="primary" onClick={resetSlider}>
+          Reset to Default
+        </Button>
+      </div>
     </div>
   );
 };

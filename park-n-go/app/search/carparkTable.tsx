@@ -129,7 +129,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
           </div>
           <div className='my-8 w-full'>
             <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Number of Entries</div>
-            <div style={{display:'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+            <div style={{display:'flex', justifyContent: 'space-around', alignItems: 'center', margin:'10px' }}>
               <Button variant="contained" color="primary" onClick={handleDecreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>-</b></Button>
               {/* <button className='button' onClick={handleDecreaseEntries} style={{color:'black'}}>-</button> */}
               <div style={{color:'black', fontSize: '30px'}}>{noOfEntries}</div>
