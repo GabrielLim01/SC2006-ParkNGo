@@ -20,7 +20,7 @@ export function CarparkItem({id, data, carparkInfo}) {
             <>
               {carpark.carpark_number === id && (
                 <tr>
-                  <td>Availability:</td>
+                  <td>Availability: </td>
                   <td>{carpark.carpark_info[0].lots_available}</td>
                 </tr>
               )}

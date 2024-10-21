@@ -269,7 +269,7 @@ export default function Home() {
       <div className="h-screen flex justify-center pt-10">
         <div className='w-1/2 h-4/5 items-center rounded-lg mr-8'><DMap loc={location}/></div>
 
-        <div className="card text-black w-1/3 h-4/5">
+        <div className="card text-black w-1/3 h-2/5">
 
           {carparkInfo.map((myCarpark) => (
           <>
@@ -277,21 +277,23 @@ export default function Home() {
             <div>
               <p><b>{myCarpark.car_park_no}</b></p>
               <p>{myCarpark.address}</p>
-
+              
+              <table>
               {data.items[0].carpark_data.map((carpark) => (
               <>
                 {carpark.carpark_number === id && (
                   <tr>
                     <td>Availability:</td>
-                    <td>{carpark.carpark_info[0].lots_available}</td>
+                    <td>{carpark.carpark_info[0].lots_available} empty lots</td>
                   </tr>
                 )}
               </>
               ))}
+              <tr><td>Carpark Type:</td><td>{myCarpark.car_park_type}</td></tr>
+              <tr><td>Parking System:</td><td>{myCarpark.type_of_parking_system}</td></tr>
+              <tr><td>Gantry Height:</td><td>{myCarpark.gantry_height} meters</td></tr>
 
-              <p>Carpark type: {myCarpark.car_park_type}</p>
-              <p>Short term: {myCarpark.type_of_parking_system}</p>
-              <p>Gantry height: {myCarpark.gantry_height}m</p>
+              </table>
               {myCarpark.free_parking ?
                 <p style={{ color: 'green' }}>Free parking allowed</p>
               : <p style={{ color: 'red' }}>No free parking</p>

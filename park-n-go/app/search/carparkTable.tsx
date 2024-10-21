@@ -165,7 +165,8 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
         {/* this is the filter result */}
         <div className="lg:w-9/12 w-full px-6 mx-auto pl-0">
           {filteredCarparkInfo.slice(0, noOfEntries).map((info, index) => (
-            <Card key={index} style={{ margin: 20, width: 900, 'backgroundColor': '#e0fffb' }} className={styles.cardHover}>
+            <a href={"view?id=" + info.car_park_no}>
+            <Card key={index} style={{ margin: 20, width: 900, 'backgroundColor': '#e0f1ff' }} className={styles.cardHover}>
               <CardHeader title={info.car_park_no} />
               <CardContent>
                 
@@ -174,7 +175,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                   <tbody>
                     <tr><td className="w-1/4">Address:</td><td>{info.address}</td></tr>
                     <tr><td className="w-1/4">Carpark Type:</td><td>{info.car_park_type}</td></tr>
-                    <tr><td className="w-1/4">Parking System:</td><td>{info.type_of_parking_system}</td></tr>
+                    <tr><td className="w-1/4">Parking System:</td><td>{info.type_of_parking_system} empty lots</td></tr>
                     {data.items && data.items[0] && data.items[0].carpark_data && (
                       <React.Fragment>
                         {data.items[0].carpark_data.map((carpark) => (
@@ -205,6 +206,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                 </div>
               </CardContent>
             </Card>
+            </a>
           ))}
         </div>
       </div>
