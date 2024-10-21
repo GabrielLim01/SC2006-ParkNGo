@@ -1,28 +1,16 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 equal-width columns */
-    gap: 10px; /* space between grid items */
-}
-
-.item {
-    padding: 20px;
-    background-color: lightgreen;
-    border: 1px solid green;
-}
-
-.card{
+.card-btn{
     border: 1px solid hsl(0, 0%, 80%);
     border-radius: 20px;
     box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.1);
-    background-color: hsl(207, 100%, 94%);
+    background-color: #ece9ff;
     padding: 10px;
-    /* margin: 10px; */
+    margin: 3px;
     text-align: left;
-    width: 250px;
+    width: 200px;
     display: inline-block;
 }
 
-.card-container{
+.card-btn-container{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;

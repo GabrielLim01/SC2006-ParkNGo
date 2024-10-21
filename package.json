@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
     "axios-cache-adapter": "^2.7.3",
     "fs": "^0.0.1-security"
   }
