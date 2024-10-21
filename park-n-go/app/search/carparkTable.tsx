@@ -175,7 +175,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                   <tbody>
                     <tr><td className="w-1/4">Address:</td><td>{info.address}</td></tr>
                     <tr><td className="w-1/4">Carpark Type:</td><td>{info.car_park_type}</td></tr>
-                    <tr><td className="w-1/4">Parking System:</td><td>{info.type_of_parking_system} empty lots</td></tr>
+                    <tr><td className="w-1/4">Parking System:</td><td>{info.type_of_parking_system}</td></tr>
                     {data.items && data.items[0] && data.items[0].carpark_data && (
                       <React.Fragment>
                         {data.items[0].carpark_data.map((carpark) => (
@@ -183,7 +183,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                             {carpark.carpark_number === info.car_park_no && (
                               <tr>
                                 <td>Availability:</td>
-                                <td>{carpark.carpark_info[0].lots_available}</td>
+                                <td>{carpark.carpark_info[0].lots_available}  empty lots</td>
                               </tr>
                             )}
                           </React.Fragment>
