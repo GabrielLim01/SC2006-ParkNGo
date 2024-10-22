@@ -52,9 +52,25 @@ interface CarparkData {
 
 
 export default function Home() {
-
+  const [arrData, setArrData] = useState([]);
+  const [index, setIndex] = useState(-1);
   // todo: fetch this particular carpark info from somewherw??!?!
-  const id = "ACM";
+  useEffect(() => {
+    fetch("./names.csv")
+      .then(response => response.text())
+      .then(responseText => {
+        const parsedData = Papa.parse(responseText);
+        setArrData(parsedData.data);
+        
+        const foundIndex = parsedData.data.findIndex(x => x[0] === queryParameters.get("id"));
+        setIndex(foundIndex);
+
+        console.log(queryParameters.get("id"),foundIndex, parsedData.data);
+      });
+  }, []);
+  const carparkInf = index !== -1 ? arrData[index] : null;
+  const queryParameters = new URLSearchParams(window.location.search)
+  const id = queryParameters.get("id");
   // const carparkID = "NNDN"
   // const carparkAddr = "Nanyang Drive"
   // const availLots = 192
@@ -65,8 +81,8 @@ export default function Home() {
   // const gantryHeight = 4.50
 
   const location = {
-    lat : 1.3521,
-    long : 103.8198
+    lat : carparkInf ? parseFloat(carparkInf[2]) :1.3521,
+    long : carparkInf ? parseFloat(carparkInf[3]) :103.8198
   }
   //state
   const [position_lat, setPosition_lat] = useState(1.3521);
