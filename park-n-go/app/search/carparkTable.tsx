@@ -133,7 +133,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
           <div className="my-8 w-full">
             <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Type of Carparks</div>
             <div style={{margin:'10px', display:'flex'}}>
-              <select style={{width:'100%', color:'black'}} value={filter3} onClick={handleFilter3}>
+              <select style={{width:'100%', color:'black'}} value={filter3} onChange={handleFilter3}>
                 <option value="ANY">ANY</option>
                 <option value="SURFACE CAR PARK">SURFACE CAR PARK</option>
                 <option value="MULTI-STOREY CAR PARK">MULTI-STOREY CAR PARK</option>
