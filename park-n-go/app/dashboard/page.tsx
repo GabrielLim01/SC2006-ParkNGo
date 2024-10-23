@@ -51,8 +51,17 @@ export default function Dashboard() {
 
   const [data, setData] = useState<CarparkData | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>([]);
   const [loading, setLoading] = useState(false);
+
+  // todo: add timestamp to refetch data when it is older than 1 week
+  const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>(()=>{
+    const localValue = localStorage.getItem("full")
+    if (localValue == null) return []
+    return JSON.parse(localValue)
+  });
+  useEffect(()=>{
+    localStorage.setItem("full", JSON.stringify(carparkInfo))
+  },[carparkInfo])
 
   useEffect(() => {
     const options = {
@@ -77,20 +86,41 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const csvData = Papa.parse("/names.csv", {
-      header: true,
-      download: true,
-      skipEmptyLines: true,
-      delimiter: ",",
-      complete: (results) => {
-        console.log("CSV Data:", results.data);
-        setCarparkInfo(results.data);
-      },
-      error: (error) => {
-        console.error("CSV Error:", error);
-      },
-    });
+    const options = {
+      method: 'GET',
+      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09',
+      timeout: 10000, // Set a timeout of 10 seconds
+    };
+
+    setLoading(true);
+
+    axios.request(options)
+      .then(response => {
+        console.log('API Response:', response.data);
+        setCarparkInfo(response.data.result.records);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('API Error:', error);
+        setError(error);
+        setLoading(false);
+      });
   }, []);
+  // useEffect(() => {
+  //   const csvData = Papa.parse("/names.csv", {
+  //     header: true,
+  //     download: true,
+  //     skipEmptyLines: true,
+  //     delimiter: ",",
+  //     complete: (results) => {
+  //       console.log("CSV Data:", results.data);
+  //       setCarparkInfo(results.data);
+  //     },
+  //     error: (error) => {
+  //       console.error("CSV Error:", error);
+  //     },
+  //   });
+  // }, []);
 
   console.log('Data State:', data);
 

@@ -11,10 +11,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 // import { useParams } from 'react-router-dom';
 
-// Additional pages and components
-// import {CarparkTable} from "./carparkInformation/carparkTable"
 import "./index.css";
-// import { CarparkList } from "./CarparkList";
 
 // ReactSearchKit component
 // import { ReactSearchKit, SearchBar } from 'react-searchkit';
@@ -54,6 +51,7 @@ interface CarparkData {
 export default function Home() {
   const [arrData, setArrData] = useState([]);
   const [index, setIndex] = useState(-1);
+  
   // todo: fetch this particular carpark info from somewherw??!?!
   useEffect(() => {
     fetch("./names.csv")
@@ -70,15 +68,7 @@ export default function Home() {
   }, []);
   const carparkInf = index !== -1 ? arrData[index] : null;
   const queryParameters = new URLSearchParams(window.location.search)
-  const id = queryParameters.get("id");
-  // const carparkID = "NNDN"
-  // const carparkAddr = "Nanyang Drive"
-  // const availLots = 192
-  // const carparkType = "MULTI-STOREY"
-  // const freeParking = true
-  // const nightParking = false
-  // const shortTerm = "7AM-10.30PM"
-  // const gantryHeight = 4.50
+  const id = queryParameters.has("id") ? queryParameters.get("id") : "ACM";
 
   const location = {
     lat : carparkInf ? parseFloat(carparkInf[2]) :1.3521,
@@ -116,6 +106,7 @@ export default function Home() {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
 
+  // todo: why are we fetching location when saving??
   useEffect(() => {
     localStorage.setItem("SAVED", JSON.stringify(saved))
     
@@ -147,8 +138,17 @@ export default function Home() {
 
   const [data, setData] = useState<CarparkData | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>(()=>{
+    const localValue = localStorage.getItem("full")
+    if (localValue == null) return []
+    return JSON.parse(localValue)
+  });
+  useEffect(()=>{
+    localStorage.setItem("full", JSON.stringify(carparkInfo))
+  },[carparkInfo])
+
 
   useEffect(() => {
     const options = {
@@ -173,20 +173,42 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const csvData = Papa.parse("/names.csv", {
-      header: true,
-      download: true,
-      skipEmptyLines: true,
-      delimiter: ",",
-      complete: (results) => {
-        console.log("CSV Data:", results.data);
-        setCarparkInfo(results.data);
-      },
-      error: (error) => {
-        console.error("CSV Error:", error);
-      },
-    });
+    const options = {
+      method: 'GET',
+      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09',
+      timeout: 10000, // Set a timeout of 10 seconds
+    };
+
+    setLoading(true);
+
+    axios.request(options)
+      .then(response => {
+        console.log('API Response:', response.data);
+        setCarparkInfo(response.data.result.records);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('API Error:', error);
+        setError(error);
+        setLoading(false);
+      });
   }, []);
+
+  // useEffect(() => {
+  //   const csvData = Papa.parse("/names.csv", {
+  //     header: true,
+  //     download: true,
+  //     skipEmptyLines: true,
+  //     delimiter: ",",
+  //     complete: (results) => {
+  //       console.log("CSV Data:", results.data);
+  //       setCarparkInfo(results.data);
+  //     },
+  //     error: (error) => {
+  //       console.error("CSV Error:", error);
+  //     },
+  //   });
+  // }, []);
 
   console.log('Data State:', data);
 
