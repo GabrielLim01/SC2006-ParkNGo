@@ -13,7 +13,7 @@ export default function Dashboard() {
         <title>Dashboard</title>
       </Head>
       <main className="bg-white flex-col items-center justify-between text-black">
-        {/* About Us Section */}
+
       <section className="w-full max-w-4xl">
         <h2 className="text-7xl font-bold text-blue-700">About Us</h2>
         <p className="mt-4 text-gray-600 text-2xl">
@@ -22,10 +22,10 @@ export default function Dashboard() {
       </section>
 
       {/* Main Content Section */}
-      <section className="w-full max-w-4xl mt-8">
+      <section className="w-full mt-8">
+        
         <div className="flex flex-col md:flex-row">
-          {/* Left side content */}
-          <div className="w-full md:w-1/2 text-left">
+          <div className="w-1/3 text-left">
             <h3 className="text-3xl font-semibold text-gray-800">
             Say goodbye to frustration and hello to a smoother parking experience.
             </h3>
@@ -41,16 +41,19 @@ export default function Dashboard() {
             </p>
           </div>
           
-          <div className="md:w-1/2 mt-8 md:mt-0 flex flex-row justif">
+          <div className="w-1/3  flex flex-row justify-between">
             <img
               src="/images/GantryHDB.png" 
               alt="gantryimage"
               className="ml-8 w-full h-auto rounded-lg shadow-lg"
             />
+          </div>
+          
+          <div className="w-1/3 flex flex-row justify-between">
             <img
               src="/images/CarparkHDB.png" 
               alt="carparkhdb"
-              className="ml-4 w-full h-auto rounded-lg shadow-lg"
+              className="ml-8 w-full h-auto rounded-lg shadow-lg"
             />
           </div>
         </div>

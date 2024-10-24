@@ -6,6 +6,7 @@ import GantryHeightSlider from './GantryHeightSlider'; // Import the new gantry 
 import styles from './CarparkTable.module.css';
 import { blue } from '@material-ui/core/colors';
 import { Button } from '@material-ui/core';
+import Link from 'next/link';
 
 interface CarparkInfo {
   car_park_no: string;
@@ -112,16 +113,17 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
       setFilters2({ minGantryHeight, maxGantryHeight });
     }
   };
+
+
+
   return (
     <div className="flex flex-col w-full font-poppins">
       {/* <p style={{color:'black'}}>This is filter3: {filter3}</p> */}
 
       <div className="flex justify-center mt-10">
-        <CarparkSearch
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
+        <CarparkSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
       </div>
+
       <div className="flex justify-center flex-col mt-10 lg:flex-row items-start mx-auto md:w-11/12">
         
         {/* this is the filters for user to set */}
@@ -167,7 +169,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
         {/* this is the filter result */}
         <div className="lg:w-9/12 w-full px-6 mx-auto pl-0">
           {filteredCarparkInfo.slice(0, noOfEntries).map((info, index) => (
-            <a href={"view?id=" + info.car_park_no}>
+            <Link href={"view?id=" + info.car_park_no}>
             <Card key={index} style={{ margin: 20, width: 900, 'backgroundColor': '#e0f1ff' }} className={styles.cardHover}>
               <CardHeader title={info.car_park_no} />
               <CardContent>
@@ -200,15 +202,15 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                 <div className={styles.cardInfo}>
                   <table className="table table-striped table-bordered table-hover">
                     <tbody>
-                      <tr><td className="w-38">Free Parking:</td><td>{info.free_parking}</td></tr>
-                      <tr><td className="w-38">Night Parking:</td><td>{info.night_parking}</td></tr>
-                      <tr><td className="w-38">Gantry Height:</td><td>{info.gantry_height}</td></tr>
+                      <tr><td className="w-1/4">Free Parking:</td><td>{info.free_parking}</td></tr>
+                      <tr><td className="w-1/4">Night Parking:</td><td>{info.night_parking}</td></tr>
+                      <tr><td className="w-1/4">Gantry Height:</td><td>{info.gantry_height}</td></tr>
                     </tbody>
                   </table>
                 </div>
               </CardContent>
             </Card>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

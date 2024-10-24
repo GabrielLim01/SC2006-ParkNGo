@@ -73,10 +73,16 @@ function Carpark() {
       });
   }, []);
 
+
+  const currentDate = new Date();
   useEffect(() => {
+    const localValue = localStorage.getItem("latest")
+    if(localValue == currentDate.toLocaleDateString()) return;
+    localStorage.setItem("latest", currentDate.toLocaleDateString())
+
     const options = {
       method: 'GET',
-      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09',
+      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09&limit=3000',
       timeout: 10000, // Set a timeout of 10 seconds
     };
 

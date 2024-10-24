@@ -172,10 +172,15 @@ export default function Home() {
       });
   }, []);
 
+  const currentDate = new Date();
   useEffect(() => {
+    const localValue = localStorage.getItem("latest")
+    if(localValue == currentDate.toLocaleDateString()) return;
+    localStorage.setItem("latest", currentDate.toLocaleDateString())
+
     const options = {
       method: 'GET',
-      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09',
+      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09&limit=3000',
       timeout: 10000, // Set a timeout of 10 seconds
     };
 
@@ -288,11 +293,8 @@ export default function Home() {
                 
               }}></div>
           </div>
-
-
         </AdvancedMarker>
       </Map>
-      
     </APIProvider>
   );
 
@@ -300,33 +302,26 @@ export default function Home() {
     <Layout>
       <Head>
         <title>View</title>
-
       </Head>
 
 
-      <div className="h-screen flex justify-center pt-10">
-        <div className='w-1/2 h-4/5 items-center rounded-lg mr-8'><DMap loc={location}/></div>
+      <div className="h-[75vh] w-full justify-center" style={{position:'relative'}}>
+      {/* <div className="h-screen w-full flex justify-center pt-2"> */}
+        <div className="w-full items-center rounded-lg mr-8" style={{zIndex:1, top:0, left:0, position:'absolute'}}><DMap loc={location}/></div>
 
-        <div className="card text-black w-1/3 h-4/5">
-
-          {carparkInfo.map((myCarpark) => (
-          <>
+        <div className="card text-black w-1/3 h-auto" style={{zIndex:2, bottom:0, right:0, position:'absolute'}}>
+          {carparkInfo.map((myCarpark) => (<>
           {myCarpark.car_park_no === id && (
             <div>
               <p><b>{myCarpark.car_park_no}</b></p>
               <p>{myCarpark.address}</p>
               
               <table>
-              {data.items[0].carpark_data.map((carpark) => (
-              <>
+              {data.items[0].carpark_data.map((carpark) => (<>
                 {carpark.carpark_number === id && (
-                  <tr>
-                    <td>Availability:</td>
-                    <td>{carpark.carpark_info[0].lots_available} empty lots</td>
-                  </tr>
+                  <tr><td>Availability:</td><td>{carpark.carpark_info[0].lots_available} empty lots</td></tr>
                 )}
-              </>
-              ))}
+              </>))}
               <tr><td>Carpark Type:</td><td>{myCarpark.car_park_type}</td></tr>
               <tr><td>Parking System:</td><td>{myCarpark.type_of_parking_system}</td></tr>
               <tr><td>Gantry Height:</td><td>{myCarpark.gantry_height} meters</td></tr>
@@ -341,7 +336,6 @@ export default function Home() {
               : <p style={{ color: 'red' }}>No night parking</p>
               }
 
-              {/* {true? */}
               {saved.includes(id) ?
                 <button onClick={e => deleteSaved(id)}
                   style={{ color: 'red', backgroundColor: 'hsla(350,100%,72%,0.5)' }}

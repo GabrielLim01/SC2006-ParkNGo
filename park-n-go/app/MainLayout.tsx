@@ -2,6 +2,8 @@
 import Image from "next/image";
 import "./globals.css"
 
+import Link from 'next/link'
+
 // Flowbite components
 import { Navbar } from "flowbite-react";
 
@@ -21,18 +23,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </span>
         <Navbar.Toggle />
         <Navbar.Collapse className="text-lg font-bold text-white">
-          <Navbar.Link href="/dashboard">
+          <Link href="/dashboard">
             <h1 className="self-center whitespace-nowrap text-lg font-semibold text-white" >Home</h1>
-          </Navbar.Link>
-          <Navbar.Link href="/search">
+          </Link>
+          <Link href="/search">
             <h1 className="self-center whitespace-nowrap text-lg font-semibold text-white" >Search</h1>
-          </Navbar.Link>
-          <Navbar.Link href="/about">
+          </Link>
+          <Link href="/about">
             <h1 className="self-center whitespace-nowrap text-lg font-semibold text-white" >About</h1>
-          </Navbar.Link>
-          <Navbar.Link href="/contact">
+          </Link>
+          <Link href="/contact">
             <h1 className="self-center whitespace-nowrap text-lg font-semibold text-white" >Contact</h1>
-          </Navbar.Link>
+          </Link>
         </Navbar.Collapse>
       </Navbar>
 

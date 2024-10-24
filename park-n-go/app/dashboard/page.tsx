@@ -85,10 +85,15 @@ export default function Dashboard() {
       });
   }, []);
 
+  const currentDate = new Date();
   useEffect(() => {
+    const localValue = localStorage.getItem("latest")
+    if(localValue == currentDate.toLocaleDateString()) return;
+    localStorage.setItem("latest", currentDate.toLocaleDateString())
+
     const options = {
       method: 'GET',
-      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09',
+      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09&limit=3000',
       timeout: 10000, // Set a timeout of 10 seconds
     };
 
@@ -147,19 +152,12 @@ export default function Dashboard() {
       </Head>
       <main className="bg-white flex-col items-center justify-between text-black">
         <Link href="/dashboard/carparkInformation"><h1>View Carpark Information here</h1></Link>
-        {/* <ReactSearchKit>
-          <SearchBar />
-        </ReactSearchKit> */}
 
         <h1 className="text-3xl pt-8">Saved Carparks</h1>
         <div className="card-container">
           {saved.map(item => {
             return <CarparkItem id={item} data={data} carparkInfo={carparkInfo}/>
           })}
-
-          {/* sample carparks */}
-          {/* <CarparkItem id="NNDN321" address="Nanyang Drive" availLots={192} />
-          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} /> */}
         </div >
 
         {/* saved.length === 0 && "No saved carpark" */}
@@ -169,10 +167,6 @@ export default function Dashboard() {
           {/* {saved.map(item => {
             return <CarparkItem id={item}/>
           })} */}
-
-          {/* sample carparks */}
-          {/* <CarparkItem id="NNDN321" address="Nanyang Drive" availLots={192} />
-          <CarparkItem id="CKCC139" address="Choa Chu Kang" availLots={23} /> */}
         </div >
       </main >
     </Layout>
