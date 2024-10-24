@@ -111,21 +111,6 @@ export default function Dashboard() {
         setLoading(false);
       });
   }, []);
-  // useEffect(() => {
-  //   const csvData = Papa.parse("/names.csv", {
-  //     header: true,
-  //     download: true,
-  //     skipEmptyLines: true,
-  //     delimiter: ",",
-  //     complete: (results) => {
-  //       console.log("CSV Data:", results.data);
-  //       setCarparkInfo(results.data);
-  //     },
-  //     error: (error) => {
-  //       console.error("CSV Error:", error);
-  //     },
-  //   });
-  // }, []);
 
   console.log('Data State:', data);
 
@@ -151,7 +136,7 @@ export default function Dashboard() {
         <title>Dashboard</title>
       </Head>
       <main className="bg-white flex-col items-center justify-between text-black">
-        <Link href="/dashboard/carparkInformation"><h1>View Carpark Information here</h1></Link>
+        {/* <Link href="/dashboard/carparkInformation"><h1>View Carpark Information here</h1></Link> */}
 
         <h1 className="text-3xl pt-8">Saved Carparks</h1>
         <div className="card-container">

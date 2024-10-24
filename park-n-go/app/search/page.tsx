@@ -100,21 +100,7 @@ function Carpark() {
         setLoading(false);
       });
   }, []);
-  // useEffect(() => {
-  //   const csvData = Papa.parse("/names.csv", {
-  //     header: true,
-  //     download: true,
-  //     skipEmptyLines: true,
-  //     delimiter: ",",
-  //     complete: (results) => {
-  //       console.log("CSV Data:", results.data);
-  //       setCarparkInfo(results.data);
-  //     },
-  //     error: (error) => {
-  //       console.error("CSV Error:", error);
-  //     },
-  //   });
-  // }, []);
+
 
   console.log('Data State:', data);
 

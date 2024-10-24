@@ -194,9 +194,6 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                         ))}
                       </React.Fragment>
                     )}
-
-                    
-                    
                   </tbody>
                 </table>
                 <div className={styles.cardInfo}>

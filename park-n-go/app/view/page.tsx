@@ -49,41 +49,100 @@ interface CarparkData {
 
 
 export default function Home() {
-  const [arrData, setArrData] = useState([]);
-  const [index, setIndex] = useState(-1);
-  
-  // todo: fetch this particular carpark info from somewherw??!?!
-  useEffect(() => {
-    fetch("./names.csv")
-      .then(response => response.text())
-      .then(responseText => {
-        const parsedData = Papa.parse(responseText);
-        setArrData(parsedData.data);
-        
-        const foundIndex = parsedData.data.findIndex(x => x[0] === queryParameters.get("id"));
-        setIndex(foundIndex);
+  const [data, setData] = useState<CarparkData | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+  const [loading, setLoading] = useState(false);
 
-        console.log(queryParameters.get("id"),foundIndex, parsedData.data);
-      });
-  }, []);
-  const carparkInf = index !== -1 ? arrData[index] : null;
-  const queryParameters = new URLSearchParams(window.location.search)
-  const id = queryParameters.has("id") ? queryParameters.get("id") : "ACM";
-
-  const location = {
-    lat : carparkInf ? parseFloat(carparkInf[2]) :1.3521,
-    long : carparkInf ? parseFloat(carparkInf[3]) :103.8198
-  }
-  //state
-  const [position_lat, setPosition_lat] = useState(1.3521);
-  const [position_long, setPosition_long] = useState(103.8198);
-
-  // todo: actually save in a local database
+  // saved carpark by user
   const [saved, setSaved] = useState(() => {
     const localValue = localStorage.getItem("saved")
     if (localValue == null) return []
     return JSON.parse(localValue)
   })
+  useEffect(()=>{
+    localStorage.setItem("saved", JSON.stringify(saved))
+  }, [saved])
+  function addSaved(id) {
+    setSaved(currentSaved => {return [...currentSaved, id]})
+  }
+  function deleteSaved(id) {
+    setSaved(currentSaved => {return currentSaved.filter(item => item !== id)})
+  }
+
+  // carpark info in cache
+  const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>(()=>{
+    const localValue = localStorage.getItem("full")
+    if (localValue == null) return []
+    return JSON.parse(localValue)
+  });
+  useEffect(()=>{
+    localStorage.setItem("full", JSON.stringify(carparkInfo))
+  },[carparkInfo])
+
+  // carpark availabiltiy
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      url: 'https://api.data.gov.sg/v1/transport/carpark-availability',
+      timeout: 10000, // Set a timeout of 10 seconds
+    };
+    setLoading(true);
+    axios.request(options)
+      .then(response => {
+        console.log('API Response:', response.data);
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('API Error:', error);
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+
+  // carpark info
+  const currentDate = new Date();
+  useEffect(() => {
+    const localValue = localStorage.getItem("latest")
+    if(localValue == currentDate.toLocaleDateString()) return;
+    localStorage.setItem("latest", currentDate.toLocaleDateString())
+
+    const options = {
+      method: 'GET',
+      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09&limit=3000',
+      timeout: 10000, // Set a timeout of 10 seconds
+    };
+    setLoading(true);
+    axios.request(options)
+      .then(response => {
+        console.log('API Response:', response.data);
+        setCarparkInfo(response.data.result.records);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('API Error:', error);
+        setError(error);
+        setLoading(false);
+      });
+  }, []);
+  
+  // find specific carpark
+  const [index, setIndex] = useState(-1);
+  const queryParameters = new URLSearchParams(window.location.search)
+  const id = queryParameters.has("id") ? queryParameters.get("id") : "ACM";
+  const carparkInf = index !== -1 ? carparkInfo[index] : null;
+  useEffect(() => {
+      const foundIndex = carparkInfo.findIndex(x => x[0] === queryParameters.get("id"));
+      setIndex(foundIndex);
+      console.log(queryParameters.get("id"), foundIndex, carparkInfo);
+  }, [carparkInfo]);
+
+  const location = {
+    lat : carparkInf ? parseFloat(carparkInf[2]) : 1.3521,
+    long : carparkInf ? parseFloat(carparkInf[3]) : 103.8198
+  }
+  const [position_lat, setPosition_lat] = useState(1.3521);
+  const [position_long, setPosition_long] = useState(103.8198);
 
   //find loc - gmap
   var options = {
@@ -106,11 +165,8 @@ export default function Home() {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
 
-  // todo: why are we fetching location when saving??
+  //get location
   useEffect(() => {
-    localStorage.setItem("saved", JSON.stringify(saved))
-    
-    //get location
     if (navigator.geolocation) {
       navigator.permissions
         .query({ name: "geolocation" })
@@ -133,87 +189,7 @@ export default function Home() {
     } else {
       console.log("Geolocation is not supported by this browser.");
     }
-  }, [saved])
-
-
-  const [data, setData] = useState<CarparkData | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>(()=>{
-    const localValue = localStorage.getItem("full")
-    if (localValue == null) return []
-    return JSON.parse(localValue)
-  });
-  useEffect(()=>{
-    localStorage.setItem("full", JSON.stringify(carparkInfo))
-  },[carparkInfo])
-
-
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      url: 'https://api.data.gov.sg/v1/transport/carpark-availability',
-      timeout: 10000, // Set a timeout of 10 seconds
-    };
-
-    setLoading(true);
-
-    axios.request(options)
-      .then(response => {
-        console.log('API Response:', response.data);
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('API Error:', error);
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
-
-  const currentDate = new Date();
-  useEffect(() => {
-    const localValue = localStorage.getItem("latest")
-    if(localValue == currentDate.toLocaleDateString()) return;
-    localStorage.setItem("latest", currentDate.toLocaleDateString())
-
-    const options = {
-      method: 'GET',
-      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09&limit=3000',
-      timeout: 10000, // Set a timeout of 10 seconds
-    };
-
-    setLoading(true);
-
-    axios.request(options)
-      .then(response => {
-        console.log('API Response:', response.data);
-        setCarparkInfo(response.data.result.records);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('API Error:', error);
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
-
-  // useEffect(() => {
-  //   const csvData = Papa.parse("/names.csv", {
-  //     header: true,
-  //     download: true,
-  //     skipEmptyLines: true,
-  //     delimiter: ",",
-  //     complete: (results) => {
-  //       console.log("CSV Data:", results.data);
-  //       setCarparkInfo(results.data);
-  //     },
-  //     error: (error) => {
-  //       console.error("CSV Error:", error);
-  //     },
-  //   });
-  // }, []);
+  }, [])
 
   console.log('Data State:', data);
 
@@ -221,24 +197,11 @@ export default function Home() {
 
 
 
-  // add/delete a carpark information into saved list
-  function addSaved(id) {
-    setSaved(currentSaved => {
-      return [...currentSaved, id]
-    })
-  }
-  function deleteSaved(id) {
-    setSaved(currentSaved => {
-      return currentSaved.filter(item => item !== id)
-    })
-  }
-  useEffect(() => {
-    localStorage.setItem('saved', JSON.stringify(saved));
-  }, [saved]);
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
+
+  // if (error) {
+  //   return <div>Error: {error.message}</div>;
+  // }
 
   if (loading) {
     return <div>Loading...</div>;

@@ -32,17 +32,17 @@ export default function Dashboard() {
         <title>About</title>
       </Head>
       <main className="bg-white flex-col items-center justify-between text-black">
-      
-      <h1 style={{fontSize: '30px'}}><b>Our Team - Alphabetical Order</b></h1>
-      <ul style={{listStyleType: 'square'}}>
-        <li><a href="https://github.com/alanlelmn">Alan Lee Leman</a></li>
-        <li><a href="https://github.com/lermean">Cheo Ler Min</a></li>
-        <li><a href="https://github.com/faybeez">Faybeata</a></li>
-        <li><a href="https://github.com/GabrielLim01">Lim Qing En Gabriel</a></li>
-        <li><a href="https://github.com/Lervinnnn">Quek Jun Jie Lervin</a></li>
-        <li><a href="https://github.com/sentheta">Vannes Wijaya</a></li>
-      </ul>
+      <h1 style={{fontSize: '40px'}}><b>Our Team - Alphabetical Order</b></h1>
+      <div style={{fontSize: '20px'}}>
+        <p><a href="https://github.com/alanlelmn">1. Alan Lee Leman</a></p>
+        <p><a href="https://github.com/lermean">2. Cheo Ler Min</a></p>
+        <p><a href="https://github.com/faybeez">3. Faybeata</a></p>
+        <p><a href="https://github.com/GabrielLim01">4. Lim Qing En Gabriel</a></p>
+        <p><a href="https://github.com/Lervinnnn">5. Quek Jun Jie Lervin</a></p>
+        <p><a href="https://github.com/sentheta">6. Vannes Wijaya</a></p>
+      </div>
 
+      
       </main >
     </Layout>
   );
