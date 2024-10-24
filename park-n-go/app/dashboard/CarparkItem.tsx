@@ -10,7 +10,7 @@ export function CarparkItem({id, data, carparkInfo}) {
   
   return <>
     {/* {typeof data.items} */}
-    <Link href={"view?id="+id}> 
+    <Link href={"view?id="+id} className="h-full"> 
       {carparkInfo.map((myCarpark) => (
         <>
         {myCarpark.car_park_no === id && (

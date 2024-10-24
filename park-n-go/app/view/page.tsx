@@ -108,7 +108,7 @@ export default function Home() {
 
   // todo: why are we fetching location when saving??
   useEffect(() => {
-    localStorage.setItem("SAVED", JSON.stringify(saved))
+    localStorage.setItem("saved", JSON.stringify(saved))
     
     //get location
     if (navigator.geolocation) {
