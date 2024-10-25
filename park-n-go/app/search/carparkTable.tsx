@@ -170,7 +170,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
         <div className="w-full">
           {filteredCarparkInfo.slice(0, noOfEntries).map((info, index) => (
             <Link href={"view?id=" + info.car_park_no}>
-            <Card key={index} style={{ margin: 20, 'backgroundColor': '#e0f1ff' }} className={styles.cardHover+"w-full"}>
+            <Card key={index} style={{ margin: 20, 'backgroundColor': '#e0f1ff' }} className={styles.cardHover}>
               <CardHeader title={info.car_park_no} />
               <CardContent>
                 
