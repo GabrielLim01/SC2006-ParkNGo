@@ -109,7 +109,7 @@ export default function Home() {
 
     const options = {
       method: 'GET',
-      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09&limit=3000',
+      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09',
       timeout: 10000, // Set a timeout of 10 seconds
     };
     setLoading(true);
