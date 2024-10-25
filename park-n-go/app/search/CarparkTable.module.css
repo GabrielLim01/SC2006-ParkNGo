@@ -24,15 +24,15 @@
 
 .search-bar {
   flex: 1;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 .filter-container {
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 20px;
+  /* padding: 20px; */
   background-color: #f9f9f9;
-  width: 250px; /* Adjust width as needed */
+  width: 70%;
 }
 
 .filter-title {

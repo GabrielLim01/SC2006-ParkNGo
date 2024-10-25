@@ -15,7 +15,7 @@ export function CarparkItem({id, data, carparkInfo}) {
         <>
         {myCarpark.car_park_no === id && (
           <div className="card">
-            <h1><b>{myCarpark.car_park_no}</b></h1>
+            <div className="text-xl"><b>{myCarpark.car_park_no}</b></div>
             <h2>{myCarpark.address}</h2>
 
             {data.items[0].carpark_data.map((carpark) => (

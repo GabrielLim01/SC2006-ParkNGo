@@ -124,16 +124,16 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
         <CarparkSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
       </div>
 
-      <div className="flex justify-center flex-col mt-10 lg:flex-row items-start mx-auto md:w-11/12">
+      <div className="flex justify-center mt-10 flex-col lg:flex-row items-start">
         
         {/* this is the filters for user to set */}
-        <div className="md:w-3/12 w-full flex flex-col px-4 justify-center items-start mx-auto">
+        <div className="flex flex-col justify-center items-start mx-auto">
           <div className="my-8 w-full">
-            <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Parking Options</div>
+            <div className='text-2xl mx-auto text-center py-4 bg-purple-200 text-purple-800'>Parking Options</div>
             <CarparkFilter filters={filters1} setFilters={setFilters1}/>
           </div>
           <div className="my-8 w-full">
-            <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Type of Carparks</div>
+            <div className='text-2xl mx-auto text-center py-4 bg-purple-200 text-purple-800'>Type of Carparks</div>
             <div style={{margin:'10px', display:'flex'}}>
               <select style={{width:'100%', color:'black'}} value={filter3} onChange={handleFilter3}>
                 <option value="ANY">ANY</option>
@@ -147,7 +147,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
             </div>
           </div>
           <div className='my-8 w-full'>
-            <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Gantry Height</div>
+            <div className='text-2xl mx-auto text-center py-4 bg-purple-200 text-purple-800'>Gantry Height</div>
             <GantryHeightSlider
               minGantryHeight={filters2.minGantryHeight}
               maxGantryHeight={filters2.maxGantryHeight}
@@ -167,10 +167,10 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
 
 
         {/* this is the filter result */}
-        <div className="lg:w-9/12 w-full px-6 mx-auto pl-0">
+        <div className="w-full">
           {filteredCarparkInfo.slice(0, noOfEntries).map((info, index) => (
             <Link href={"view?id=" + info.car_park_no}>
-            <Card key={index} style={{ margin: 20, width: 900, 'backgroundColor': '#e0f1ff' }} className={styles.cardHover}>
+            <Card key={index} style={{ margin: 20, 'backgroundColor': '#e0f1ff' }} className={styles.cardHover+"w-full"}>
               <CardHeader title={info.car_park_no} />
               <CardContent>
                 

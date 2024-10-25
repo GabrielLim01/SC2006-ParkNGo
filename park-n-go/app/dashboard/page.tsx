@@ -135,7 +135,7 @@ export default function Dashboard() {
       <Head>
         <title>Dashboard</title>
       </Head>
-      <main className="bg-white flex-col items-center justify-between text-black">
+      <main className="bg-white flex-col items-center justify-between text-black text-wrap">
         {/* <Link href="/dashboard/carparkInformation"><h1>View Carpark Information here</h1></Link> */}
 
         <h1 className="text-3xl pt-8">Saved Carparks</h1>

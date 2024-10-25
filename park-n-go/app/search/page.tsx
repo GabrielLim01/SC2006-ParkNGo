@@ -6,8 +6,6 @@ import Head from 'next/head';
 // Main layout
 import Layout from "../MainLayout";
 
-import "./index.css";
-
 
 import React, { useState, useEffect, Suspense } from 'react';
 import axios from 'axios';

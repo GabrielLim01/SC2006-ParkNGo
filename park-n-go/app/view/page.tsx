@@ -268,11 +268,11 @@ export default function Home() {
       </Head>
 
 
-      <div className="h-[75vh] w-full justify-center" style={{position:'relative'}}>
+      <div className="h-[75vh] w-full justify-center text-wrap" style={{position:'relative'}}>
       {/* <div className="h-screen w-full flex justify-center pt-2"> */}
         <div className="w-full items-center rounded-lg mr-8" style={{zIndex:1, top:0, left:0, position:'absolute'}}><DMap loc={location}/></div>
 
-        <div className="card text-black w-1/3 h-auto" style={{zIndex:2, bottom:0, right:0, position:'absolute'}}>
+        <div className="card text-black w-full sm:w-2/5 h-auto" style={{zIndex:2, bottom:0, right:0, position:'absolute'}}>
           {carparkInfo.map((myCarpark) => (<>
           {myCarpark.car_park_no === id && (
             <div>
