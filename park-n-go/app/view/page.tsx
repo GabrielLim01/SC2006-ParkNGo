@@ -197,8 +197,8 @@ export default function Home() {
   }, [carparkInfo]);
 
   const location = {
-    lat : carparkInf ? SVYtoWGS(parseFloat(carparkInf[2]),parseFloat(carparkInf[3])).latitude : 1.3521,
-    long : carparkInf ? SVYtoWGS(parseFloat(carparkInf[2]),parseFloat(carparkInf[3])).longitude : 103.8198
+    lat : carparkInf ? SVYtoWGS(carparkInf[2],carparkInf[3]).latitude : 1.3521,
+    long : carparkInf ? SVYtoWGS(carparkInf[2],carparkInf[3]).longitude : 103.8198
   }
   const [position_lat, setPosition_lat] = useState(1.3521);
   const [position_long, setPosition_long] = useState(103.8198);
