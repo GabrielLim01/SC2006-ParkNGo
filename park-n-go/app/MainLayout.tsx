@@ -10,7 +10,7 @@ import { Navbar } from "flowbite-react";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="h-screen overflow-auto">
-      <Navbar fluid className="sm:px-32 bg-mainBlue py-4 h-28 w-full flex-col content-center justify-items-start">
+      <Navbar fluid className="px-[8%] lg:px-32 bg-mainBlue py-4 h-28 w-full flex-col content-center justify-items-start">
         {/* <Image
           src="/images/ParkNGo_Icon.png"
           height={100}
@@ -38,7 +38,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Navbar.Collapse>
       </Navbar>
 
-      <div className="mx-[10%] mt-[5%]">{children}</div>
+      <div className="mx-[8%] mt-[5%] lg:mx-32">{children}</div>
       {/* <div className="mx-32 mt-4">{children}</div> */}
 
       {/* Animation */}
