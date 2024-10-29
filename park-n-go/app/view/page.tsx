@@ -131,6 +131,7 @@ export default function Home() {
   const queryParameters = new URLSearchParams(window.location.search)
   const id = queryParameters.has("id") ? queryParameters.get("id") : "ACM";
   const carparkInf = index !== -1 ? carparkInfo[index] : null;
+  
   useEffect(() => {
       const foundIndex = carparkInfo.findIndex(x => x[0] === queryParameters.get("id"));
       setIndex(foundIndex);
@@ -193,12 +194,6 @@ export default function Home() {
 
   console.log('Data State:', data);
 
-  
-
-
-
-
-
   // if (error) {
   //   return <div>Error: {error.message}</div>;
   // }
@@ -216,7 +211,7 @@ export default function Home() {
     <APIProvider apiKey={API_KEY}>
       <Map
         mapId={'bf51a910020fa25a'}
-        //style={{ width: '70vw', height: '80vh' , alignItems:"center"}}
+        style={{width: "100%"}}
         defaultCenter={{ lat: loc.lat, lng: loc.long }}
         defaultZoom={15}
         gestureHandling={'greedy'}
@@ -267,27 +262,26 @@ export default function Home() {
         <title>View</title>
       </Head>
 
-
-      <div className="h-[75vh] w-full justify-center text-wrap" style={{position:'relative'}}>
+      <div className="h-screen w-full flex flex-col lg:flex-row lg:justify-between text-wrap pt-2">
       {/* <div className="h-screen w-full flex justify-center pt-2"> */}
-        <div className="w-full items-center rounded-lg mr-8" style={{zIndex:1, top:0, left:0, position:'absolute'}}><DMap loc={location}/></div>
+        <div className="w-full h-1/2 mb-4 lg:w-3/5 lg:h-4/5 lg:mb-0 items-center rounded-lg mr-8"><DMap loc={location}/></div>
 
-        <div className="card text-black w-full sm:w-2/5 h-auto" style={{zIndex:2, bottom:0, right:0, position:'absolute'}}>
+        <div className="card text-black w-full h-auto lg:w-2/5 lg:h-4/5">
           {carparkInfo.map((myCarpark) => (<>
           {myCarpark.car_park_no === id && (
-            <div>
-              <p><b>{myCarpark.car_park_no}</b></p>
-              <p>{myCarpark.address}</p>
+            <div className="font-sans-serif-3 text-wrap lg:px-4 lg:pt-4 text-sm lg:text-lg">
+              <p className='text-lg lg:text-xl'><b>{myCarpark.address}</b></p>
+              <p className='text-xs lg:text-sm'>{myCarpark.car_park_no}</p>
               
-              <table>
+              <table className="w-full my-1 lg:my-4">
               {data.items[0].carpark_data.map((carpark) => (<>
                 {carpark.carpark_number === id && (
-                  <tr><td>Availability:</td><td>{carpark.carpark_info[0].lots_available} empty lots</td></tr>
+                  <tr><td className='font-bold'>Availability</td><td>{carpark.carpark_info[0].lots_available} empty lots</td></tr>
                 )}
               </>))}
-              <tr><td>Carpark Type:</td><td>{myCarpark.car_park_type}</td></tr>
-              <tr><td>Parking System:</td><td>{myCarpark.type_of_parking_system}</td></tr>
-              <tr><td>Gantry Height:</td><td>{myCarpark.gantry_height} meters</td></tr>
+              <tr><td className='font-bold'>Carpark Type</td><td>{myCarpark.car_park_type}</td></tr>
+              <tr><td className='font-bold'>Parking System</td><td>{myCarpark.type_of_parking_system}</td></tr>
+              <tr><td className='font-bold'>Gantry Height</td><td>{myCarpark.gantry_height} meters</td></tr>
 
               </table>
               {myCarpark.free_parking ?
@@ -295,20 +289,20 @@ export default function Home() {
               : <p style={{ color: 'red' }}>No free parking</p>
               }
               {myCarpark.night_parking ?
-                <p style={{ color: 'green' }}>Night parking allowed</p>
-              : <p style={{ color: 'red' }}>No night parking</p>
+                <p className='mb-2 lg:mb-8' style={{ color: 'green' }}>Night parking allowed</p>
+              : <p className='mb-2 lg:mb-8' style={{ color: 'red' }}>No night parking</p>
               }
 
               {saved.includes(id) ?
                 <button onClick={e => deleteSaved(id)}
                   style={{ color: 'red', backgroundColor: 'hsla(350,100%,72%,0.5)' }}
-                  className="btn">
+                  className="btn font-sans-serif-3 w-full lg:w-32 rounded-3xl">
                   Unsave
                 </button>
                 :
                 <button onClick={e => addSaved(id)}
                   style={{ color: 'blue', background: 'hsl(200,100%,50%,0.5)' }}
-                  className="btn">
+                  className="btn font-sans-serif-3 w-full lg:w-32 rounded-3xl">
                   Save
                 </button>
               }
@@ -319,7 +313,7 @@ export default function Home() {
         ))}
 
           
-        </div>
+      </div>
 
       </div>
     </Layout>
