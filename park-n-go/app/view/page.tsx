@@ -32,6 +32,8 @@ interface CarparkInfo {
   night_parking: string;
   car_park_basement: string;
   gantry_height: number;
+  x_coord: number;
+  y_coord: number;
 }
 
 interface CarparkData {
@@ -185,21 +187,19 @@ export default function Home() {
   }, []);
   
   // find specific carpark
-  const [index, setIndex] = useState(-1);
   const queryParameters = new URLSearchParams(window.location.search)
   const id = queryParameters.has("id") ? queryParameters.get("id") : "ACM";
-  const carparkInf = index !== -1 ? carparkInfo[index] : null;
-  
-  useEffect(() => {
-      const foundIndex = carparkInfo.findIndex(x => x[0] === queryParameters.get("id"));
-      setIndex(foundIndex);
-      console.log(queryParameters.get("id"), foundIndex, carparkInfo);
-  }, [carparkInfo]);
+  const carparkArr = carparkInfo.find(item => {
+    if(item.car_park_no === id){
+    return true
+    }
+    // return <div>dist: {dist}</div>
+  })
 
-  const location = {
-    lat : carparkInf ? SVYtoWGS(carparkInf[2],carparkInf[3]).latitude : 1.3521,
-    long : carparkInf ? SVYtoWGS(carparkInf[2],carparkInf[3]).longitude : 103.8198
-  }
+  const carparklatlong = carparkArr ? SVYtoWGS(carparkArr.x_coord, carparkArr.y_coord) : {latitude:1.3521,longitude:103.8198};
+  console.log(carparklatlong.latitude)
+  const location = {lat:carparklatlong.latitude,long:carparklatlong.longitude}
+
   const [position_lat, setPosition_lat] = useState(1.3521);
   const [position_long, setPosition_long] = useState(103.8198);
 
