@@ -29,19 +29,47 @@ export default function Dashboard() {
   return (
     <Layout>
       <Head>
-        <title>About</title>
+        <title>Contact</title>
       </Head>
+      <section className="w-full">
+        <h2 className="text-7xl font-bold text-blue-700">Our Team - Alphabetical Order</h2>
+      </section>
       <main className="bg-white flex-col items-center justify-between text-black">
-      <h1 style={{fontSize: '40px'}}><b>Our Team - Alphabetical Order</b></h1>
-      <div style={{fontSize: '20px'}}>
-        <p><a href="https://github.com/alanlelmn">1. Alan Lee Leman</a></p>
-        <p><a href="https://github.com/lermean">2. Cheo Ler Min</a></p>
-        <p><a href="https://github.com/faybeez">3. Faybeata</a></p>
-        <p><a href="https://github.com/GabrielLim01">4. Lim Qing En Gabriel</a></p>
-        <p><a href="https://github.com/Lervinnnn">5. Quek Jun Jie Lervin</a></p>
-        <p><a href="https://github.com/sentheta">6. Vannes Wijaya</a></p>
-      </div>
 
+      
+
+
+
+
+
+      <section className="w-full mt-8">
+        
+        <div className="flex flex-col md:flex-row">
+          <div className="w-1/3 text-left text-2xl">
+              <p><a href="https://github.com/alanlelmn">1. Alan Lee Leman</a></p>
+              <p><a href="https://github.com/lermean">2. Cheo Ler Min</a></p>
+              <p><a href="https://github.com/faybeez">3. Faybeata</a></p>
+              <p><a href="https://github.com/GabrielLim01">4. Lim Qing En Gabriel</a></p>
+              <p><a href="https://github.com/Lervinnnn">5. Quek Jun Jie Lervin</a></p>
+              <p><a href="https://github.com/sentheta">6. Vannes Wijaya</a></p>
+          </div>
+          
+          <div className="w-1/3 flex flex-row justify-between">
+            <img
+              src="/images/groupPhoto1.jpg" 
+              alt="gantryimage"
+              className="ml-8 w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <div className="w-1/3  flex flex-row justify-between">
+            <img
+              src="/images/groupPhoto2.jpg" 
+              alt="gantryimage"
+              className="ml-8 w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </section>
       
       </main >
     </Layout>

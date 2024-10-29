@@ -10,9 +10,8 @@ export default function Dashboard() {
   return (
     <Layout>
       <Head>
-        <title>Dashboard</title>
+        <title>About</title>
       </Head>
-      <main className="bg-white flex-col items-center justify-between text-black">
 
       <section className="w-full max-w-4xl">
         <h2 className="text-7xl font-bold text-blue-700">About Us</h2>
@@ -20,6 +19,10 @@ export default function Dashboard() {
           Skip the hunt, park in a snap!
         </p>
       </section>
+      
+      <main className="bg-white flex-col items-center justify-between text-black">
+
+      
 
       {/* Main Content Section */}
       <section className="w-full mt-8">
@@ -41,7 +44,7 @@ export default function Dashboard() {
             </p>
           </div>
           
-          <div className="w-1/3  flex flex-row justify-between">
+          <div className="w-1/3 flex flex-row justify-between">
             <img
               src="/images/GantryHDB.png" 
               alt="gantryimage"
