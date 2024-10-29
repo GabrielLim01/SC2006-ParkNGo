@@ -232,7 +232,7 @@ export default function Dashboard() {
             const dist = WGSDist(userLoc.latitude, userLoc.longitude, carparkCoord.latitude, carparkCoord.longitude)
             // return <div>dist: {dist}</div>
             if(dist > 2.0) return <></>
-            return <CarparkItem id={item.car_park_no} data={data} carparkInfo={carparkInfo}/>
+            return <CarparkItem id={item.car_park_no} data={data} carparkInfo={[item]}/>
           })}
         </div >
       </main >

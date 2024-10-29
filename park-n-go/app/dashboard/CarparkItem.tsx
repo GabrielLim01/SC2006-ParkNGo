@@ -1,12 +1,6 @@
 import Link from 'next/link';
 
 export function CarparkItem({id, data, carparkInfo}) {
-  // todo: get carpark address and availLots from its id
-  
-  // if id is invalid, this will fail
-  // const myCarpark = carparkInfo.filter(item => item.car_park_no===id)[0]
-  // const availLots = data.items.carpark_data
-
   
   return <>
     {/* {typeof data.items} */}
