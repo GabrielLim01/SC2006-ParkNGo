@@ -25,17 +25,16 @@ const CarparkFilter: React.FC<FilterProps> = ({ filters, setFilters }) => {
 
   return (
     <div className="filter-container" style={{margin:'1px'}}>
-      <h2 className="filter-title">Type of Carpark</h2>
       <ul className="filter-list">
         {filterOptions.map((option) => (
-          <li key={option.value} className="card-btn" style={{ color: 'black' }}>
+          <li key={option.value} className="card-btn font-sans-serif-3" style={{ color: 'black' }}>
             <input
               type="checkbox"
               id={option.value}
               name={option.value}
               checked={filters[option.value]}
               onChange={handleCheckboxChange}
-              className="filter-checkbox"
+              className="filter-checkbox mr-4 rounded-md border-2 border-dGrey"
             />
             <label htmlFor={option.value} className="filter-label"> {option.label}</label>
           </li>

@@ -16,7 +16,8 @@ const CarparkSearch: React.FC<SearchProps> = ({ searchTerm, setSearchTerm }) => 
       onChange={(e) => setSearchTerm(e.target.value)}
       label="Search by car park number, address, type, or system"
       variant="filled"
-      style={{ width: 1000, height: 48, marginLeft: 20, backgroundColor: "white" }}
+      className='w-4/5 h-16 px-4 py-8'
+      //style={{ width: 1000, height: 48, marginLeft: 20, backgroundColor: "white" }}
       placeholder="Search..."
       size="small"
       InputProps={{

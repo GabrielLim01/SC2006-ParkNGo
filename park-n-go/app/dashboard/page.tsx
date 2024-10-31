@@ -214,8 +214,8 @@ export default function Dashboard() {
       <main className="bg-white flex-col items-center justify-between text-black text-wrap">
         {/* <Link href="/dashboard/carparkInformation"><h1>View Carpark Information here</h1></Link> */}
 
-        <h1 className="text-3xl pt-8">Saved Carparks</h1>
-        <div className="card-container">
+        <h1 className="text-3xl pt-8 font-oswald font-bold">SAVED CARPARKS</h1>
+        <div className="card-container py-2">
           {saved.map(item => {
             return <CarparkItem id={item} data={data} carparkInfo={carparkInfo}/>
           })}
@@ -225,8 +225,8 @@ export default function Dashboard() {
         {/* <div>userLoc: {userLoc.latitude}, {userLoc.longitude}</div> */}
         {/* <div>userLoc: {navigator.geolocation.getCurrentPosition().latitude}, {userLoc.longitude}</div> */}
 
-        <h1 className="text-3xl pt-8">Nearby Carparks</h1>
-        <div className="card-container">
+        <h1 className="text-3xl pt-8 font-oswald font-bold">NEARBY CARPARKS</h1>
+        <div className="card-container py-2">
           {carparkInfo.map(item => {
             const carparkCoord = SVYtoWGS(item.x_coord, item.y_coord)
             const dist = WGSDist(userLoc.latitude, userLoc.longitude, carparkCoord.latitude, carparkCoord.longitude)

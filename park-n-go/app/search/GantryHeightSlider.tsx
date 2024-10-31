@@ -50,10 +50,10 @@ const GantryHeightSlider: React.FC<GantryHeightSliderProps> = ({
         Current value: {value.join(' - ')}
       </Typography> */}
       <div>
-        <p style={{ color: "black" }}>Min Gantry Height: {value[0]} meters</p>
-        <p style={{ color: "black" }}>Max Gantry Height: {value[1]} meters</p>
+        <p style={{ color: "black" }} className='font-sans-serif-3'>Min Gantry Height: {value[0]} meters</p>
+        <p style={{ color: "black" }} className='font-sans-serif-3'>Max Gantry Height: {value[1]} meters</p>
       </div>
-      <div style={{display:'flex', justifyContent:'center', margin:'10px'}}>
+      <div className="m-4 mt-5" style={{display:'flex', justifyContent:'center'}}>
         <Button variant="contained" color="primary" onClick={resetSlider} style={{fontSize:'16px'}}>
           Reset to Default
         </Button>

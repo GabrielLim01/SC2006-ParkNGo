@@ -4,7 +4,6 @@ import CarparkSearch from './CarparkSearch'; // Import the new search component
 import CarparkFilter from './CarparkFilter'; // Import the filter component
 import GantryHeightSlider from './GantryHeightSlider'; // Import the new gantry height slider component
 import styles from './CarparkTable.module.css';
-import { blue } from '@material-ui/core/colors';
 import { Button } from '@material-ui/core';
 import Link from 'next/link';
 
@@ -117,7 +116,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
 
 
   return (
-    <div className="flex flex-col w-full font-poppins">
+    <div className="flex flex-col w-full font-sans-serif-3">
       {/* <p style={{color:'black'}}>This is filter3: {filter3}</p> */}
 
       <div className="flex justify-center mt-10">
@@ -128,14 +127,14 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
         
         {/* this is the filters for user to set */}
         <div className="flex flex-col justify-center items-start mx-auto">
-          <div className="my-8 w-full">
-            <div className='text-2xl mx-auto text-center py-4 bg-purple-200 text-purple-800'>Parking Options</div>
+          <div className="my-8 w-full text-black rounded-xl p-8 bg-white drop-shadow-xl">
+            <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold mb-2'>Parking Options</div>
             <CarparkFilter filters={filters1} setFilters={setFilters1}/>
           </div>
-          <div className="my-8 w-full">
-            <div className='text-2xl mx-auto text-center py-4 bg-purple-200 text-purple-800'>Type of Carparks</div>
+          <div className="my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl">
+            <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Type of Carparks</div>
             <div style={{margin:'10px', display:'flex'}}>
-              <select style={{width:'100%', color:'black'}} value={filter3} onChange={handleFilter3}>
+              <select className="rounded-md border-lGrey border-collapse hover:border-dGrey" style={{width:'100%', color:'black'}} value={filter3} onChange={handleFilter3}>
                 <option value="ANY">ANY</option>
                 <option value="SURFACE CAR PARK">SURFACE CAR PARK</option>
                 <option value="MULTI-STOREY CAR PARK">MULTI-STOREY CAR PARK</option>
@@ -146,18 +145,18 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
               </select>
             </div>
           </div>
-          <div className='my-8 w-full'>
-            <div className='text-2xl mx-auto text-center py-4 bg-purple-200 text-purple-800'>Gantry Height</div>
+          <div className='my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl'>
+            <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Gantry Height</div>
             <GantryHeightSlider
               minGantryHeight={filters2.minGantryHeight}
               maxGantryHeight={filters2.maxGantryHeight}
               onGantryHeightChange={handleGantryHeightChange}
             />
           </div>
-          <div className='my-8 w-full'>
-            <div className='text-2xl mx-auto text-center py-4 w-auto bg-purple-200 text-purple-800'>Number of Entries</div>
+          <div className='my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl'>
+            <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Number of Entries</div>
             <div style={{display:'flex', justifyContent: 'space-around', alignItems: 'center', margin:'10px' }}>
-              <Button variant="contained" color="primary" onClick={handleDecreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>-</b></Button>
+              <Button variant="contained" color="blue" onClick={handleDecreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>-</b></Button>
               <div style={{color:'black', fontSize: '30px'}}>{noOfEntries}</div>
               <Button variant="contained" color="primary" onClick={handleIncreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>+</b></Button>
             </div>
@@ -170,16 +169,16 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
         <div className="w-full">
           {filteredCarparkInfo.slice(0, noOfEntries).map((info, index) => (
             <Link href={"view?id=" + info.car_park_no}>
-            <Card key={index} style={{ margin: 20, 'backgroundColor': '#e0f1ff' }} className={styles.cardHover}>
-              <CardHeader title={info.car_park_no} />
+            <Card key={index} style={{ margin: 20, 'backgroundColor': '#C9F2F4', 'font':'sans-serif-3' }} className={styles.cardHover}>
+              <CardHeader title={info.car_park_no}/>
               <CardContent>
                 
 
                 <table className="table table-striped table-bordered table-hover">
                   <tbody>
-                    <tr><td className="w-1/4">Address:</td><td>{info.address}</td></tr>
-                    <tr><td className="w-1/4">Carpark Type:</td><td>{info.car_park_type}</td></tr>
-                    <tr><td className="w-1/4">Parking System:</td><td>{info.type_of_parking_system}</td></tr>
+                    <tr><td className="w-1/4">Address</td><td>{info.address}</td></tr>
+                    <tr><td className="w-1/4">Carpark Type</td><td>{info.car_park_type}</td></tr>
+                    <tr><td className="w-1/4">Parking System</td><td>{info.type_of_parking_system}</td></tr>
                     {data.items && data.items[0] && data.items[0].carpark_data && (
                       <React.Fragment>
                         {data.items[0].carpark_data.map((carpark) => (
@@ -199,9 +198,9 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                 <div className={styles.cardInfo}>
                   <table className="table table-striped table-bordered table-hover">
                     <tbody>
-                      <tr><td className="w-1/4">Free Parking:</td><td>{info.free_parking}</td></tr>
-                      <tr><td className="w-1/4">Night Parking:</td><td>{info.night_parking}</td></tr>
-                      <tr><td className="w-1/4">Gantry Height:</td><td>{info.gantry_height}</td></tr>
+                      <tr><td className="w-1/4">Free Parking</td><td>{info.free_parking}</td></tr>
+                      <tr><td className="w-1/4">Night Parking</td><td>{info.night_parking}</td></tr>
+                      <tr><td className="w-1/4">Gantry Height</td><td>{info.gantry_height}</td></tr>
                     </tbody>
                   </table>
                 </div>

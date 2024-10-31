@@ -14,8 +14,9 @@ const config: Config = {
       mainBlue : "#04266C",
       secBlue : "#2541B2",
       dGrey : "#716E77",
-      lGrey : "E2E4EF",
-      lightBlue : "06BEE1",
+      lGrey : "#E2E4EF",
+      lightBlue : "#06BEE1",
+      lighterBlue : "#C9F2F4",
     },
     extend: {
       backgroundImage: {
