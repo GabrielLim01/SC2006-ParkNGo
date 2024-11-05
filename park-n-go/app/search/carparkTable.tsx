@@ -7,27 +7,8 @@ import styles from './CarparkTable.module.css';
 import { Button } from '@material-ui/core';
 import Link from 'next/link';
 
-interface CarparkInfo {
-  car_park_no: string;
-  address: string;
-  car_park_type: string;
-  type_of_parking_system: string;
-  free_parking: string;
-  night_parking: string;
-  car_park_basement: string;
-  gantry_height: number; // Change to number for compatibility
-}
-
-interface CarparkData {
-  items: {
-    carpark_data: {
-      carpark_number: string;
-      carpark_info: {
-        lots_available: number;
-      };
-    }[];
-  };
-}
+import {CarparkData, CarparkInfo} from '../search/PageModel';
+import {NightParkingFilter, GantryHeightFilter, FreeParkingFilter, SearchTermFilter, CarparkTypeFilter, CarparkFilterContext} from '../search/carparkTableModel';
 
 interface Props {
   data: CarparkData;
@@ -37,24 +18,25 @@ interface Props {
 const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCarparkInfo, setFilteredCarparkInfo] = useState(carparkInfo);
+  const [noOfEntries, setNoOfEntries] = useState(10);
+  const [filter3, setFilter3] = useState("ANY")
+  //true false filters
   const [filters1, setFilters1] = useState({
     nightParking: false,
     basementCarpark: false,
     freeParking: false,
   });
+  //gantry height
   const [filters2, setFilters2] = useState({
     minGantryHeight: 0,
     maxGantryHeight: 10,
   });
 
   // carpark type
-  const [filter3, setFilter3] = useState("ANY")
   const handleFilter3 = (event)=>{
     setFilter3(event.target.value)
   }
-
   // no of displayed entries
-  const [noOfEntries, setNoOfEntries] = useState(10);
   const handleIncreaseEntries = () =>{
     setNoOfEntries(noOfEntries + 5)
   }
@@ -69,37 +51,19 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
       setFilteredCarparkInfo([]);
       return;
     }
-
-    let filteredInfo = carparkInfo.filter((info) => {
-      let isValid = true;
-
-      if (filters1.nightParking) {
-        isValid = isValid && info.night_parking === 'YES';
-      }
-      if (filters1.freeParking) {
-        isValid = isValid && info.free_parking !== 'NO';
-      }
-
-      if (searchTerm && searchTerm.trim() !== '') {
-        const searchTermLower = searchTerm.toLowerCase();
-        isValid = isValid && (
-          info.car_park_no.toLowerCase().includes(searchTermLower) ||
-          info.address.toLowerCase().includes(searchTermLower) ||
-          info.car_park_type.toLowerCase().includes(searchTermLower) ||
-          info.type_of_parking_system.toLowerCase().includes(searchTermLower)
-        );
-      }
-
-      if(filter3 != "ANY"){
-        isValid = isValid && info.car_park_type==filter3;
-      }
-
-      // Check gantry height filters
-      isValid = isValid && info.gantry_height >= filters2.minGantryHeight && info.gantry_height <= filters2.maxGantryHeight;
-
-      return isValid;
-    });
-
+  
+    const strategies = [
+      new NightParkingFilter(filters1.nightParking),
+      new FreeParkingFilter(filters1.freeParking),
+      new SearchTermFilter(searchTerm),
+      new CarparkTypeFilter(filter3),
+      new GantryHeightFilter(filters2.minGantryHeight, filters2.maxGantryHeight)
+    ];
+  
+    const filterContext = new CarparkFilterContext(strategies);
+    
+    const filteredInfo = filterContext.filter(carparkInfo);
+  
     setFilteredCarparkInfo(filteredInfo);
   }, [filters1, searchTerm, filters2, carparkInfo, filter3]);
 
@@ -113,12 +77,48 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
     }
   };
 
-
+  const Renderfilter = ({}) => (
+    <div className="flex flex-col justify-center items-start mx-auto">
+    <div className="my-8 w-full text-black rounded-xl p-8 bg-white drop-shadow-xl">
+      <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold mb-2'>Parking Options</div>
+      <CarparkFilter filters={filters1} setFilters={setFilters1}/>
+    </div>
+    <div className="my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl">
+      <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Type of Carparks</div>
+      <div style={{margin:'10px', display:'flex'}}>
+        <select className="rounded-md border-lGrey border-collapse hover:border-dGrey" style={{width:'100%', color:'black'}} value={filter3} onChange={handleFilter3}>
+          <option value="ANY">ANY</option>
+          <option value="SURFACE CAR PARK">SURFACE CAR PARK</option>
+          <option value="MULTI-STOREY CAR PARK">MULTI-STOREY CAR PARK</option>
+          <option value="BASEMENT CAR PARK">BASEMENT CAR PARK</option>
+          <option value="SURFACE/MULTI-STOREY CAR PARK">SURFACE/MULTI-STOREY CAR PARK</option>
+          <option value="COVERED CAR PARK">COVERED CAR PARK</option>
+          <option value="MECHANISED AND SURFACE CAR PARK">MECHANISED AND SURFACE CAR PARK</option>
+        </select>
+      </div>
+    </div>
+    <div className='my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl'>
+      <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Gantry Height</div>
+      <GantryHeightSlider
+        minGantryHeight={filters2.minGantryHeight}
+        maxGantryHeight={filters2.maxGantryHeight}
+        onGantryHeightChange={handleGantryHeightChange}
+      />
+    </div>
+    <div className='my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl'>
+      <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Number of Entries</div>
+      <div style={{display:'flex', justifyContent: 'space-around', alignItems: 'center', margin:'10px' }}>
+        <Button variant="contained" color="primary" onClick={handleDecreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>-</b></Button>
+        <div style={{color:'black', fontSize: '30px'}}>{noOfEntries}</div>
+        <Button variant="contained" color="primary" onClick={handleIncreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>+</b></Button>
+      </div>
+    </div>
+  </div>
+  );
 
   return (
     <div className="flex flex-col w-full font-sans-serif-3">
-      {/* <p style={{color:'black'}}>This is filter3: {filter3}</p> */}
-
+    {/*search bar*/}
       <div className="flex justify-center mt-10">
         <CarparkSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
       </div>
@@ -126,44 +126,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
       <div className="flex justify-center mt-10 flex-col lg:flex-row items-start">
         
         {/* this is the filters for user to set */}
-        <div className="flex flex-col justify-center items-start mx-auto">
-          <div className="my-8 w-full text-black rounded-xl p-8 bg-white drop-shadow-xl">
-            <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold mb-2'>Parking Options</div>
-            <CarparkFilter filters={filters1} setFilters={setFilters1}/>
-          </div>
-          <div className="my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl">
-            <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Type of Carparks</div>
-            <div style={{margin:'10px', display:'flex'}}>
-              <select className="rounded-md border-lGrey border-collapse hover:border-dGrey" style={{width:'100%', color:'black'}} value={filter3} onChange={handleFilter3}>
-                <option value="ANY">ANY</option>
-                <option value="SURFACE CAR PARK">SURFACE CAR PARK</option>
-                <option value="MULTI-STOREY CAR PARK">MULTI-STOREY CAR PARK</option>
-                <option value="BASEMENT CAR PARK">BASEMENT CAR PARK</option>
-                <option value="SURFACE/MULTI-STOREY CAR PARK">SURFACE/MULTI-STOREY CAR PARK</option>
-                <option value="COVERED CAR PARK">COVERED CAR PARK</option>
-                <option value="MECHANISED AND SURFACE CAR PARK">MECHANISED AND SURFACE CAR PARK</option>
-              </select>
-            </div>
-          </div>
-          <div className='my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl'>
-            <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Gantry Height</div>
-            <GantryHeightSlider
-              minGantryHeight={filters2.minGantryHeight}
-              maxGantryHeight={filters2.maxGantryHeight}
-              onGantryHeightChange={handleGantryHeightChange}
-            />
-          </div>
-          <div className='my-8 w-full bg-white drop-shadow-xl p-8 rounded-xl'>
-            <div className='text-xl mx-auto text-center font-sans-serif-3 font-bold text-black mb-8'>Number of Entries</div>
-            <div style={{display:'flex', justifyContent: 'space-around', alignItems: 'center', margin:'10px' }}>
-              <Button variant="contained" color="primary" onClick={handleDecreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>-</b></Button>
-              <div style={{color:'black', fontSize: '30px'}}>{noOfEntries}</div>
-              <Button variant="contained" color="primary" onClick={handleIncreaseEntries} style={{color:'white', fontSize: '25px', padding:'0px'}}><b>+</b></Button>
-            </div>
-            
-          </div>
-        </div>
-
+        <Renderfilter></Renderfilter>
 
         {/* this is the filter result */}
         <div className="w-full">
@@ -186,7 +149,7 @@ const CarparkTable: React.FC<Props> = ({ data, carparkInfo }) => {
                             {carpark.carpark_number === info.car_park_no && (
                               <tr>
                                 <td>Availability:</td>
-                                <td>{carpark.carpark_info[0].lots_available}  empty lots</td>
+                                <td>{carpark.carpark_info[0].lots_available} empty lots</td>
                               </tr>
                             )}
                           </React.Fragment>

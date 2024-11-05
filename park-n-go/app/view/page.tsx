@@ -47,9 +47,6 @@ interface CarparkData {
   };
 }
 
-
-
-
 export default function Home() {
   const [data, setData] = useState<CarparkData | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -70,7 +67,6 @@ export default function Home() {
   function deleteSaved(id) {
     setSaved(currentSaved => {return currentSaved.filter(item => item !== id)})
   }
-
   function SVYtoWGS(x, y){
     // SVY21 projection parameters
     const refLat = 1.366666, refLong = 103.833333;
@@ -112,20 +108,6 @@ export default function Home() {
     const longitude = long_rad * 180 / Math.PI;
     return { latitude, longitude };  
   }
-  function WGSDist(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Earth's radius in kilometers
-    // Convert degrees to radians
-    const toRadians = (deg) => deg * (Math.PI / 180);
-    const dLat = toRadians(lat2 - lat1);
-    const dLon = toRadians(lon2 - lon1);
-    // Haversine formula
-    const a = Math.sin(dLat / 2) ** 2 +
-              Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
-              Math.sin(dLon / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Distance in kilometers
-  }
-
   // Example usage:
   // const resultWGS = SVYtoWGS(33758.4143,	33695.5198);
 
@@ -264,7 +246,7 @@ export default function Home() {
     return <div>No data available</div>;
   }
 
-  //map
+  //create map object, using 
   const DMap = ({loc}) => (
     <APIProvider apiKey={API_KEY}>
       <Map
@@ -314,6 +296,7 @@ export default function Home() {
     </APIProvider>
   );
 
+  // view
   return (
     <Layout>
       <Head>

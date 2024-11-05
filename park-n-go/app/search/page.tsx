@@ -6,121 +6,60 @@ import Head from 'next/head';
 // Main layout
 import Layout from "../MainLayout";
 
+// Model
+import {fetchCarparkAvailability, fetchCarparkData, CarparkData, CarparkInfo} from '../search/PageModel';
+
 
 import React, { useState, useEffect, Suspense } from 'react';
-import axios from 'axios';
-import Papa from 'papaparse';
-
-interface CarparkInfo {
-  car_park_no: string;
-  address: string;
-  car_park_type: string;
-  type_of_parking_system: string;
-  free_parking: string;
-  night_parking: string;
-  car_park_basement: string;
-  gantry_height: number;
-}
-
-interface CarparkData {
-  items: {
-    carpark_data: {
-      carpark_number: string;
-      carpark_info: {
-        lots_available: number;
-      };
-    }[];
-  };
-}
 
 const CarparkTable = React.lazy(() => import('./carparkTable'));
 
+//controller
 function Carpark() {
   const [data, setData] = useState<CarparkData | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
+  const currentDate = new Date();
 
   const [carparkInfo, setCarparkInfo] = useState<CarparkInfo[]>(()=>{
     const localValue = localStorage.getItem("full")
     if (localValue == null) return []
     return JSON.parse(localValue)
   });
+
+//saves new carparkInfo to localstorage when carparkInfo changes
   useEffect(()=>{
     localStorage.setItem("full", JSON.stringify(carparkInfo))
   },[carparkInfo])
 
+  //getting carpark availability 
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      url: 'https://api.data.gov.sg/v1/transport/carpark-availability',
-      timeout: 10000, // Set a timeout of 10 seconds
-    };
-
-    setLoading(true);
-
-    axios.request(options)
-      .then(response => {
-        console.log('API Response:', response.data);
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('API Error:', error);
-        setError(error);
-        setLoading(false);
-      });
+    fetchCarparkAvailability(setData, setLoading, setError);
   }, []);
 
-
-  const currentDate = new Date();
+  //fetch carpark details
   useEffect(() => {
-    const localValue = localStorage.getItem("latest")
-    if(localValue == currentDate.toLocaleDateString()) return;
-    localStorage.setItem("latest", currentDate.toLocaleDateString())
+    fetchCarparkData(setCarparkInfo, setLoading, setError, currentDate);
+  }, [currentDate]);
 
-    const options = {
-      method: 'GET',
-      url: 'https://data.gov.sg/api/action/datastore_search?resource_id=d_23f946fa557947f93a8043bbef41dd09&limit=3000',
-      timeout: 10000, // Set a timeout of 10 seconds
-    };
-
-    setLoading(true);
-
-    axios.request(options)
-      .then(response => {
-        console.log('API Response:', response.data);
-        setCarparkInfo(response.data.result.records);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('API Error:', error);
-        setError(error);
-        setLoading(false);
-      });
-  }, []);
-
-
-  console.log('Data State:', data);
-
+  //checking if data has been received (alternative flows for error, still loading, or no data)
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (!data) {
     return <div>No data available</div>;
   }
 
+  //View
   return (
     <Layout>
       <Head>
         <title>Carpark Information</title>
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-between">
-        {/* <h1 style={{ fontSize: 45,  color: "black" }}>Carpark Availability</h1> */}
         <Suspense fallback={<div>Loading...</div>}>
           <CarparkTable data={data} carparkInfo={carparkInfo} />
         </Suspense>
