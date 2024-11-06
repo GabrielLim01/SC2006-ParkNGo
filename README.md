@@ -1,4 +1,25 @@
-# SC2006 - ParkNGo
+# SC2006 - ParkNGo, a Carpark Locator Application
+
+Done by Nanyang Technological University Year 2 Students for the SC2006 Software Engineering module.
+
+<p float="left">
+  <img src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/application_dashboard.jpg" width="200" />
+  <img src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/groupPhoto3.jpg" width="200" /> 
+</p>
+
+# Our Team Members
+Alan Lee Leman<br />
+Cheo Ler Min<br />
+Faybeata<br />
+Lim Qing En Gabriel<br />
+Quek Jun Jie Lervin<br />
+Vannes Wijaya
+
+
+## Demo Video Link ##
+
+https://www.youtube.com/watch?v=J6nwAhFdHTA
+
 
 ## Dependencies ##
 (To clean wipe all npm modules and related dependencies)
@@ -9,7 +30,7 @@ npm -g ls | grep -v 'npm@' | awk '/@/ {print $2}' | awk -F@ '{print $1}' | xargs
 
 
 Rest of library/module installation instructions can be found under "library installation commands" text file.
-
+<br />
 
 (Ignore the following section, not running bootstrap for now)
 ### Bootstrap ###
@@ -28,6 +49,10 @@ See https://stackoverflow.com/questions/75821915/next-js-include-bootstrap-js fo
 - In the terminal, run "npm run dev"
   Backend will be on http://localhost:9000
   Client will be on http://localhost:3000
+
+- For Google Maps API, you will need to create your own .env file under /park-n-go and obtain your own API key by signing up for an account.<br />
+  In the .env file, type thi one line of code: NEXT_PUBLIC_GMAPS_API_KEY=<your api key goes here><br />
+  You should see the Google Maps API functionality under the Search feature and it should be working fine.
   
 ## Git commands:
 ### BASICS
