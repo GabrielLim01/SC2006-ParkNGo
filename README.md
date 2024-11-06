@@ -3,8 +3,8 @@
 Done by Nanyang Technological University Year 2 Students for the SC2006 Software Engineering module.
 
 <p float="left">
-  <img src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/application_dashboard.png" width="400" />
-  <img src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/groupPhoto3.jpg" width="400" /> 
+  <img align="top" src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/application_dashboard.png" width="400" />
+  <img align="top" src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/groupPhoto3.jpg" width="400" /> 
 </p>
 
 # Our Team Members
