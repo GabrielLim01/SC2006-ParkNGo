@@ -3,8 +3,8 @@
 Done by Nanyang Technological University Year 2 Students for the SC2006 Software Engineering module.
 
 <p float="left">
-  <img src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/application_dashboard.jpg" width="200" />
-  <img src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/groupPhoto3.jpg" width="200" /> 
+  <img src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/application_dashboard.png" width="500" />
+  <img src="https://github.com/GabrielLim01/SC2006-ParkNGo/blob/main/park-n-go/public/images/groupPhoto3.jpg" width="500" /> 
 </p>
 
 # Our Team Members
@@ -31,7 +31,7 @@ npm -g ls | grep -v 'npm@' | awk '/@/ {print $2}' | awk -F@ '{print $1}' | xargs
 
 Rest of library/module installation instructions can be found under "library installation commands" text file.
 <br />
-
+<br />
 (Ignore the following section, not running bootstrap for now)
 ### Bootstrap ###
 npm i bootstrap react-bootstrap
@@ -52,7 +52,7 @@ See https://stackoverflow.com/questions/75821915/next-js-include-bootstrap-js fo
   Client will be on http://localhost:3000
 
 - For Google Maps API, you will need to create your own .env file under /park-n-go and obtain your own API key by signing up for an account.<br />
-  In the .env file, type thi one line of code: NEXT_PUBLIC_GMAPS_API_KEY=<your api key goes here><br />
+  In the .env file, type thi one line of code: NEXT_PUBLIC_GMAPS_API_KEY=(your api key goes here)<br />
   You should see the Google Maps API functionality under the Search feature and it should be working fine.
   
 ## Git commands:
