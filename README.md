@@ -41,6 +41,7 @@ In the global.css file, put this at the top:
 
 See https://stackoverflow.com/questions/75821915/next-js-include-bootstrap-js for more information.
 
+
 ## Instructions to running the project:
 
 - Be sure to download nodejs in your machine first (Run node -v in your terminal to check)
