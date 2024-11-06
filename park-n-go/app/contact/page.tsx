@@ -36,48 +36,41 @@ export default function Dashboard() {
       </section>
       <main className="bg-white flex-col items-center justify-between text-black">
 
+      
 
 
 
 
 
-
-        <section className="w-full mt-8">
-
-          <div className="flex flex-col md:flex-row">
-            <div className="w-1/3 text-left text-2xl">
+      <section className="w-full mt-8">
+        
+        <div className="flex flex-col md:flex-row">
+          <div className="w-1/3 text-left text-2xl">
               <p><a href="https://github.com/alanlelmn">1. Alan Lee Leman</a></p>
               <p><a href="https://github.com/lermean">2. Cheo Ler Min</a></p>
               <p><a href="https://github.com/faybeez">3. Faybeata</a></p>
               <p><a href="https://github.com/GabrielLim01">4. Lim Qing En Gabriel</a></p>
               <p><a href="https://github.com/Lervinnnn">5. Quek Jun Jie Lervin</a></p>
               <p><a href="https://github.com/sentheta">6. Vannes Wijaya</a></p>
-            </div>
-
-            <div className="w-1/3  flex flex-row justify-between">
-              <img
-                src="/images/groupPhoto3.jpg"
-                alt="gantryimage"
-                className="ml-8 w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="w-1/3 flex flex-row justify-between">
-              <img
-                src="/images/groupPhoto2.jpg"
-                alt="gantryimage"
-                className="ml-8 w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="w-1/3  flex flex-row justify-between">
-              <img
-                src="/images/groupPhoto1.jpg"
-                alt="gantryimage"
-                className="ml-8 w-full h-auto rounded-lg shadow-lg"
-              />
-            </div>
           </div>
-        </section>
-
+          
+          <div className="w-1/3 flex flex-row justify-between">
+            <img
+              src="/images/groupPhoto1.jpg" 
+              alt="gantryimage"
+              className="ml-8 w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <div className="w-1/3  flex flex-row justify-between">
+            <img
+              src="/images/groupPhoto2.jpg" 
+              alt="gantryimage"
+              className="ml-8 w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </section>
+      
       </main >
     </Layout>
   );
